@@ -43,10 +43,10 @@ FILES_TO_COPY = [
 ]
 
 # Public assets to merge into output root (no public/ subfolder)
+# No build/ – app uses CDN Tailwind only (no Vite/npm).
 PUBLIC_ITEMS = [
     ".htaccess",
     ".user.ini",
-    "build",
     "favicon.ico",
     "images",
     "models",
@@ -146,7 +146,6 @@ def main() -> int:
     parser.add_argument("--project", type=Path, default=Path.cwd(), help="Project root path")
     parser.add_argument("--output", type=Path, default=Path(DEFAULT_OUTPUT), help="Output folder name or path")
     parser.add_argument("--no-composer", action="store_true", help="Skip composer install")
-    parser.add_argument("--no-npm", action="store_true", help="Skip npm install and npm run build")
     args = parser.parse_args()
 
     project = args.project.resolve()
@@ -160,20 +159,12 @@ def main() -> int:
         shutil.rmtree(out)
     out.mkdir(parents=True)
 
-    # Optional: run composer and npm
+    # Run composer only (no npm – app uses CDN CSS)
     if not args.no_composer:
         if not run_cmd(["composer", "install", "--no-dev", "--optimize-autoloader"], project):
             print("Warning: composer install failed; continuing with existing vendor/", file=sys.stderr)
-    if not args.no_npm:
-        if (project / "package.json").exists():
-            if not run_cmd(["npm", "install"], project):
-                print("Warning: npm install failed", file=sys.stderr)
-            elif not run_cmd(["npm", "run", "build"], project):
-                print("Warning: npm run build failed", file=sys.stderr)
 
     public_dir = project / "public"
-    if not (public_dir / "build").exists():
-        print("Warning: public/build/ not found. Run: npm run build", file=sys.stderr)
 
     # Copy .php-version so hosts know PHP 8.3 is required
     phpver = project / ".php-version"

@@ -11,9 +11,9 @@ All settings are in **`config/site.php`**. Do not use `.env`.
 
 ```bash
 composer install --no-dev --optimize-autoloader
-npm install
-npm run build
 ```
+
+(No Node/npm required – the app uses CDN Tailwind only.)
 
 ---
 
@@ -33,7 +33,7 @@ Copy the full line (starts with `base64:...`). You will paste it into `config/si
 2. Upload the **whole project** into `public_html/pavan/`.
 
 **Do not upload:** `node_modules/`, `.git/`, `.env`  
-**Must have:** `vendor/`, `public/build/`, `public/models/`, `config/site.php`, `config/app.php`, `deploy/` (with `index-subfolder.php`, `run-cache.php`, `run-migrate.php`), `routes/`, `app/`, `bootstrap/`, `storage/`, etc.
+**Must have:** `vendor/`, `public/models/`, `config/site.php`, `config/app.php`, `deploy/` (with `index-subfolder.php`, `run-cache.php`, `run-migrate.php`), `routes/`, `app/`, `bootstrap/`, `storage/`, etc. (No `public/build/` – app uses CDN CSS.)
 
 ---
 
@@ -53,11 +53,10 @@ So `https://yourdomain.com/pavan/` works (no "Index of /pavan"):
 | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1      | Copy `deploy/index-subfolder.php` → rename to `index.php` and **overwrite** the existing `index.php` in the app folder. (Do **not** use Laravel’s default `public/index.php` — it looks for `vendor/` in the parent directory and will fail.) |
 | 2      | Copy `public/.htaccess` → to `pavan/.htaccess` (next to the new `index.php`)                                                                                                                                                                  |
-| 3      | Move `public/build/` → `pavan/build/`                                                                                                                                                                                                         |
-| 4      | Move `public/models/` → `pavan/models/`                                                                                                                                                                                                       |
-| 5      | Move `public/favicon.ico` and `public/robots.txt` → into `pavan/`                                                                                                                                                                             |
-| 6      | Delete the `public/` folder                                                                                                                                                                                                                   |
-| 7      | Copy `deploy/run-cache.php` and `deploy/run-migrate.php` → to `pavan/` (same folder as `index.php`, `artisan`)                                                                                                                                |
+| 3      | Move `public/models/` → `pavan/models/`                                                                                                                                                                                                       |
+| 4      | Move `public/favicon.ico` and `public/robots.txt` → into `pavan/`                                                                                                                                                                             |
+| 5      | Delete the `public/` folder                                                                                                                                                                                                                    |
+| 6      | Copy `deploy/run-cache.php` and `deploy/run-migrate.php` → to `pavan/` (same folder as `index.php`, `artisan`)                                                                                                                                |
 
 ---
 
@@ -122,21 +121,15 @@ Open: **https://camsolutions.co.in/pavan/**
 
 | #   | Task                                                                                                                                        | Done |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| 1   | `composer install --no-dev`, `npm run build`                                                                                                |      |
+| 1   | `composer install --no-dev`                                                                                                                |      |
 | 2   | `php artisan key:generate --show` → copy `base64:...`                                                                                       |      |
 | 3   | Upload project to `public_html/pavan/` (no `node_modules`, no `.env`)                                                                       |      |
 | 4   | cPanel: PHP → **ea-php83**                                                                                                                  |      |
-| 5   | Merge: `index.php`, `.htaccess`, `build/`, `models/` into `pavan/`; delete `public/`; copy `run-cache.php` and `run-migrate.php` → `pavan/` |      |
+| 5   | Merge: `index.php`, `.htaccess`, `models/` into `pavan/`; delete `public/`; copy `run-cache.php` and `run-migrate.php` → `pavan/` |      |
 | 6   | Edit `config/site.php`: **url**, **path**, **asset_url**, **key**, **db\_\*** (and **env**=production, **debug**=false)                     |      |
 | 7   | File Manager: **storage** and **bootstrap/cache** → Permissions **755** (Recurse into subdirectories)                                       |      |
 | 8   | Open `https://yoursite.com/pavan/run-migrate.php?run=1` → then **delete `run-migrate.php`**                                                 |      |
 | 9   | Open `https://yoursite.com/pavan/run-cache.php?run=1` → then **delete `run-cache.php`**                                                     |      |
-
----
-
-## If you skip `npm run build`
-
-The site still works using CDN CSS. You can omit moving `public/build/` in Step 5. `asset_url` in `config/site.php` is still required when in a subfolder.
 
 ---
 
@@ -150,13 +143,5 @@ The site still works using CDN CSS. You can omit moving `public/build/` in Step 
 
 **CSS/JS not loading (styles not working)**
 
-- Ensure **`asset_url`** in `config/site.php` matches your full site URL (e.g. `https://yourdomain.com/cam`).
-- Ensure `build/` folder exists in the app root (same folder as `index.php`, `vendor/`, etc.) and contains `manifest.json` or `assets/app-*.css`.
-- If using `npm run build`, the `build/` folder should be in the app root (not in a `public/` subfolder).
+- The app uses **CDN Tailwind** only (no build step). Ensure **`asset_url`** in `config/site.php` matches your full site URL (e.g. `https://yourdomain.com/cam`) if you use `asset()` for other files.
 - Clear config cache: open `run-cache.php?run=1` in browser (or run `php artisan config:clear` if you have Terminal).
-
-**Error: `Vite manifest not found at: .../public/build/manifest.json`**
-
-- The app expects `build/manifest.json` in the **app root** (same folder as `index.php`, `vendor/`), not inside a `public/` folder.
-- Fix: Move `build/` from `public/build/` to the app root so the path is `.../camsolution.thewindai.com/build/manifest.json`. If you still have a `public/` folder, move `public/build/` to the parent folder (app root), then delete the empty `public/` if you are using the subfolder index.php.
-- After moving, clear config cache: open `run-cache.php?run=1` in the browser.

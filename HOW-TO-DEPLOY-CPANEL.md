@@ -8,9 +8,9 @@ Quick guide. Full details: **DEPLOY-CPANEL.md** (subfolder, no SSH) or **DEPLOYM
 
 ```bash
 composer install --no-dev --optimize-autoloader
-npm install
-npm run build
 ```
+
+(No Node/npm required – the app uses CDN Tailwind only.)
 
 Generate app key (copy the output):
 
@@ -34,7 +34,7 @@ php artisan key:generate --show
 1. Create a folder in `public_html`, e.g. `cam` or `pavan`
 2. Upload the **whole project** into `public_html/cam/` (or your folder name)
 3. **Do not upload:** `node_modules/`, `.git/`, `.env`
-4. **Must have:** `vendor/`, `public/build/`, `public/models/`, `app/`, `config/`, `routes/`, `storage/`, `bootstrap/`, `deploy/`
+4. **Must have:** `vendor/`, `public/models/`, `app/`, `config/`, `routes/`, `storage/`, `bootstrap/`, `deploy/` (no `public/build/` – app uses CDN CSS)
 
 ---
 
@@ -56,11 +56,10 @@ So `https://yourdomain.com/cam/` works:
 |------|---------------------------------|
 | 1 | Copy **`deploy/index-subfolder.php`** into the app folder as **`index.php`** (overwrite the existing one). Do **not** use Laravel’s default `public/index.php` — it looks for `vendor/` in the parent and will fail. |
 | 2 | Copy `public/.htaccess` → to `cam/.htaccess` |
-| 3 | Move `public/build/` → `cam/build/` |
-| 4 | Move `public/models/` → `cam/models/` |
-| 5 | Move `public/favicon.ico`, `public/robots.txt`, `public/.user.ini` → into `cam/` |
-| 6 | Delete the empty `public/` folder |
-| 7 | Copy `deploy/run-cache.php` → to `cam/run-cache.php` |
+| 3 | Move `public/models/` → `cam/models/` |
+| 4 | Move `public/favicon.ico`, `public/robots.txt`, `public/.user.ini` → into `cam/` |
+| 5 | Delete the empty `public/` folder |
+| 6 | Copy `deploy/run-cache.php` → to `cam/run-cache.php` |
 
 ---
 
@@ -126,11 +125,11 @@ Open: **https://yourdomain.com/cam/**
 
 ## Checklist
 
-- [ ] Build: `composer install --no-dev`, `npm run build`, copy app key
+- [ ] Build: `composer install --no-dev`, copy app key
 - [ ] Create MySQL database and user in cPanel
 - [ ] Upload project to `public_html/cam/` (no `node_modules`, no `.env`)
 - [ ] PHP 8.3 (ea-php83)
-- [ ] Merge: `index.php`, `.htaccess`, `build/`, `models/` into `cam/`; delete `public/`; add `run-cache.php`
+- [ ] Merge: `index.php`, `.htaccess`, `models/` into `cam/`; delete `public/`; add `run-cache.php`
 - [ ] Edit `config/site.php`: url, path, asset_url, key, db_*, env, debug
 - [ ] Permissions: `storage`, `bootstrap/cache` → 755
 - [ ] Open `run-cache.php?run=1` in browser, then delete `run-cache.php`
