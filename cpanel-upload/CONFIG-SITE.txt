@@ -1,0 +1,13 @@
+Edit this file on the server after upload.
+
+Required keys:
+  url         => 'https://yourdomain.com/yourfolder',
+  path        => 'yourfolder',
+  asset_url   => 'https://yourdomain.com/yourfolder',
+  key         => 'base64:...',   (from: php artisan key:generate --show)
+  env         => 'production',
+  debug       => false,
+  db_host     => 'localhost',
+  db_database => 'your_db',
+  db_username => 'your_user',
+  db_password => 'your_password',
