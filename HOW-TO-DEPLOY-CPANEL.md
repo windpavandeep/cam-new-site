@@ -54,7 +54,7 @@ So `https://yourdomain.com/cam/` works:
 
 | Step | Action (in `public_html/cam/`) |
 |------|---------------------------------|
-| 1 | Copy `deploy/index-subfolder.php` → rename to `index.php` (overwrite existing) |
+| 1 | Copy **`deploy/index-subfolder.php`** into the app folder as **`index.php`** (overwrite the existing one). Do **not** use Laravel’s default `public/index.php` — it looks for `vendor/` in the parent and will fail. |
 | 2 | Copy `public/.htaccess` → to `cam/.htaccess` |
 | 3 | Move `public/build/` → `cam/build/` |
 | 4 | Move `public/models/` → `cam/models/` |
@@ -136,3 +136,13 @@ Open: **https://yourdomain.com/cam/**
 - [ ] Open `run-cache.php?run=1` in browser, then delete `run-cache.php`
 - [ ] Run `php artisan migrate --force` (Terminal or phpMyAdmin)
 - [ ] Test the site
+
+---
+
+## Troubleshooting
+
+**Error: `Failed to open stream: .../../vendor/autoload.php: No such file or directory`**
+
+Your document root is the folder that contains the **full** Laravel app (with `vendor/`, `app/`, etc. in the **same** folder as `index.php`). You must use **`deploy/index-subfolder.php`** as `index.php`, not Laravel’s default `public/index.php`.
+
+**Fix:** In cPanel File Manager, open **`deploy/index-subfolder.php`**, select all and copy. Then open **`index.php`** in the app root (same folder as `vendor/`, `app/`) and replace its entire content with the copied content. Save. Reload the site.
