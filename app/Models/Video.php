@@ -1,16 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Video extends Model
 {
-    public const CATEGORY_MILLING = 'milling';
+    public const string CATEGORY_MILLING = 'milling';
 
-    public const CATEGORY_MULTI_AXIS = 'multi_axis';
+    public const string CATEGORY_MULTI_AXIS = 'multi_axis';
 
-    public const CATEGORY_TURNING = 'turning';
+    public const string CATEGORY_TURNING = 'turning';
 
     protected $fillable = [
         'youtube_id',

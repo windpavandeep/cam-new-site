@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -17,9 +19,9 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    public const ROLE_STUDENT = 'student';
+    public const string ROLE_STUDENT = 'student';
 
-    public const ROLE_ADMIN = 'admin';
+    public const string ROLE_ADMIN = 'admin';
 
     protected $fillable = [
         'name',

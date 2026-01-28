@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Site configuration for cPanel deployment without .env
  *
- * Edit this file on the server. Requires PHP 8.3+ (ea-php83).
+ * Edit this file on the server. Requires PHP 8.3+ (cPanel: Select PHP Version → ea-php83).
  */
 
 return [

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Video;
@@ -11,8 +13,10 @@ class PageController extends Controller
 {
     /**
      * Fallback milling videos when DB has none (thumbnail: https://img.youtube.com/vi/{id}/mqdefault.jpg).
+     *
+     * @var array<int, array{id: string, title: string, pdf: string}>
      */
-    private const MILLING_VIDEOS_FALLBACK = [
+    private const array MILLING_VIDEOS_FALLBACK = [
         ['id' => 'jN7UH0_4dW4', 'title' => 'Mastercam 2D Milling Basics', 'pdf' => 'mill-basics-model.pdf'],
         ['id' => 'wixpacygYig', 'title' => 'CNC Milling Toolpaths Explained', 'pdf' => 'toolpaths-model.pdf'],
         ['id' => '2F6shnzR2h4', 'title' => 'Pocket Milling in Mastercam', 'pdf' => 'pocket-milling-model.pdf'],

@@ -1,5 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
+if (version_compare(PHP_VERSION, '8.3.0', '<')) {
+    throw new RuntimeException('CAM Solution requires PHP 8.3 or higher. Current: ' . PHP_VERSION);
+}
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

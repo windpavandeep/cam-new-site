@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * One-time script: runs database migrations without Terminal/SSH.
  *
@@ -7,8 +9,13 @@
  * 2. In browser open: https://yourdomain.com/cam/run-migrate.php?run=1
  * 3. When you see "Done", DELETE run-migrate.php from the server (File Manager).
  *
- * Requires PHP 8.3+. No .env — uses config/site.php for DB.
+ * Requires PHP 8.3+ (cPanel: ea-php83). No .env — uses config/site.php for DB.
  */
+
+if (version_compare(PHP_VERSION, '8.3.0', '<')) {
+    http_response_code(500);
+    exit('PHP 8.3 or higher is required. Current: ' . PHP_VERSION);
+}
 
 if (($_GET['run'] ?? '') !== '1') {
     http_response_code(403);
