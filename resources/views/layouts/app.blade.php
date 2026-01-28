@@ -6,10 +6,33 @@
     <title>@yield('title', 'Home') – CAM Solution</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=dm-sans:400,500,600,700" rel="stylesheet">
-    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+    @php
+        $buildManifest = base_path('build/manifest.json');
+        $buildHot = base_path('hot');
+        $hasViteManifest = file_exists($buildManifest) || file_exists($buildHot);
+        $assetUrl = rtrim(config('app.asset_url', config('app.url')), '/');
+    @endphp
+    @if ($hasViteManifest)
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/dist/tailwind.min.css">
+        @php
+            // Fallback: try to load built CSS/JS directly if manifest doesn't exist
+            $cssFiles = glob(base_path('build/assets/app-*.css'));
+            $jsFiles = glob(base_path('build/assets/app-*.js'));
+        @endphp
+        @if (!empty($cssFiles))
+            @foreach ($cssFiles as $cssFile)
+                <link rel="stylesheet" href="{{ $assetUrl }}/build/assets/{{ basename($cssFile) }}">
+            @endforeach
+        @endif
+        @if (!empty($jsFiles))
+            @foreach ($jsFiles as $jsFile)
+                <script src="{{ $assetUrl }}/build/assets/{{ basename($jsFile) }}" defer></script>
+            @endforeach
+        @endif
+        @if (empty($cssFiles))
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/dist/tailwind.min.css">
+        @endif
     @endif
     <style>
         body { font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; }

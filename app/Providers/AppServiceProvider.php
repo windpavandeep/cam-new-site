@@ -18,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
         if (config('site.path')) {
             $this->app->bind('path.public', fn() => base_path('.'));
         }
+
+        // Ensure Vite uses the correct asset URL for subfolder deployments
+        if ($assetUrl = config('app.asset_url')) {
+            $_ENV['VITE_ASSET_URL'] = $assetUrl;
+        }
     }
     /** 
      * Bootstrap any application services.
