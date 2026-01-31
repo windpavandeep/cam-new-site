@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Build a cPanel-ready folder for CAM Solution Laravel app.
+Build a cPanel-ready folder for CAM Solutions Laravel app.
 
 Run from project root:
     python3 scripts/build_cpanel_upload.py
@@ -142,7 +142,7 @@ def run_cmd(cmd: list[str], cwd: Path) -> bool:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Build cPanel upload folder for CAM Solution")
+    parser = argparse.ArgumentParser(description="Build cPanel upload folder for CAM Solutions")
     parser.add_argument("--project", type=Path, default=Path.cwd(), help="Project root path")
     parser.add_argument("--output", type=Path, default=Path(DEFAULT_OUTPUT), help="Output folder name or path")
     parser.add_argument("--no-composer", action="store_true", help="Skip composer install")
@@ -226,7 +226,7 @@ def main() -> int:
             print(f"Copied {script} to output root")
 
     # README for upload
-    readme = """CAM Solution – cPanel Upload Folder
+    readme = """CAM Solutions – cPanel Upload Folder
 =====================================
 
 1. Upload this entire folder to cPanel (e.g. public_html/yourfolder/).

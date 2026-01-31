@@ -1,4 +1,4 @@
-CAM Solution – cPanel Upload Folder
+CAM Solutions – cPanel Upload Folder
 =====================================
 
 1. Upload this entire folder to cPanel (e.g. public_html/yourfolder/).

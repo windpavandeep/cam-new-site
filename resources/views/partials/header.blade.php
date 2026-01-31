@@ -3,7 +3,7 @@
         {{-- Logo (left) --}}
         <a href="{{ route('home') }}" class="flex items-center gap-2 font-bold text-lg tracking-tight">
             <span class="text-2xl text-amber-400">◇</span>
-            <span>CAM Solution</span>
+            <span>CAM Solutions</span>
         </a>
 
         {{-- Menus (right) --}}

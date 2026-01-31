@@ -58,7 +58,34 @@ class PageController extends Controller
 
     public function videos(): \Illuminate\Contracts\View\View
     {
-        return view('videos');
+        $milling = Video::query()
+            ->where('category', Video::CATEGORY_MILLING)
+            ->orderBy('title')
+            ->get()
+            ->map(fn (Video $v) => $v->toHomeArray())
+            ->all();
+        $multiaxis = Video::query()
+            ->where('category', Video::CATEGORY_MULTI_AXIS)
+            ->orderBy('title')
+            ->get()
+            ->map(fn (Video $v) => $v->toHomeArray())
+            ->all();
+        $turning = Video::query()
+            ->where('category', Video::CATEGORY_TURNING)
+            ->orderBy('title')
+            ->get()
+            ->map(fn (Video $v) => $v->toHomeArray())
+            ->all();
+
+        if (empty($milling)) {
+            $milling = self::MILLING_VIDEOS_FALLBACK;
+        }
+
+        return view('videos', [
+            'milling_videos' => $milling,
+            'multiaxis_videos' => $multiaxis,
+            'turning_videos' => $turning,
+        ]);
     }
 
     public function about(): \Illuminate\Contracts\View\View
