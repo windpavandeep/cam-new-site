@@ -58,6 +58,7 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
             'Termwind\\' => 9,
+            'TaylanUnutmaz\\AgoraTokenBuilder\\' => 32,
         ),
         'S' => 
         array (
@@ -202,6 +203,10 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
         'Termwind\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/termwind/src',
+        ),
+        'TaylanUnutmaz\\AgoraTokenBuilder\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/taylanunutmaz/agora-token-builder/src',
         ),
         'Symfony\\Polyfill\\Uuid\\' => 
         array (
@@ -6741,6 +6746,10 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
         'Symfony\\Polyfill\\Php84\\Php84' => __DIR__ . '/..' . '/symfony/polyfill-php84/Php84.php',
         'Symfony\\Polyfill\\Php85\\Php85' => __DIR__ . '/..' . '/symfony/polyfill-php85/Php85.php',
         'Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
+        'TaylanUnutmaz\\AgoraTokenBuilder\\AccessToken' => __DIR__ . '/..' . '/taylanunutmaz/agora-token-builder/src/AccessToken.php',
+        'TaylanUnutmaz\\AgoraTokenBuilder\\Message' => __DIR__ . '/..' . '/taylanunutmaz/agora-token-builder/src/Message.php',
+        'TaylanUnutmaz\\AgoraTokenBuilder\\RtcTokenBuilder' => __DIR__ . '/..' . '/taylanunutmaz/agora-token-builder/src/RtcTokenBuilder.php',
+        'TaylanUnutmaz\\AgoraTokenBuilder\\RtmTokenBuilder' => __DIR__ . '/..' . '/taylanunutmaz/agora-token-builder/src/RtmTokenBuilder.php',
         'Termwind\\Actions\\StyleToMethod' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Actions/StyleToMethod.php',
         'Termwind\\Components\\Anchor' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/Anchor.php',
         'Termwind\\Components\\BreakLine' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/BreakLine.php',

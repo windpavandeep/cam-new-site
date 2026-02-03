@@ -3,29 +3,22 @@
 @section('title', 'Home')
 
 @section('content')
-{{-- 1. Banner carousel --}}
+{{-- 1. Banner carousel (dynamic from dashboard) --}}
 <section class="banner-carousel relative h-[280px] sm:h-[340px] md:h-[400px] overflow-hidden bg-slate-800">
     <div class="carousel-track flex h-full transition-transform duration-500 ease-out" id="carouselTrack">
+        @forelse ($slider_slides as $slide)
         <div class="carousel-slide flex-shrink-0 w-full h-full min-h-full relative flex items-center justify-center bg-slate-800">
-            <img src="{{ asset('images/slide-1.jpeg') }}" alt="CNC Programming" class="absolute inset-0 w-full h-full object-cover">
-            <div class="absolute inset-0 bg-slate-900/50"></div>
-            <!-- <div class="relative text-center text-white px-4 z-10">
-                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Mastercam Milling &amp; CNC</h2>
-                    <p class="text-slate-200 text-lg">Professional training for modern manufacturing</p>
-                </div> -->
+            <img src="{{ $slide->image_url }}" alt="Slide" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+            <div class="absolute inset-0 "></div>
         </div>
+        @empty
         <div class="carousel-slide flex-shrink-0 w-full h-full min-h-full bg-gradient-to-br from-amber-900/50 via-slate-800 to-slate-700 flex items-center justify-center">
             <div class="text-center text-white px-4">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Multi-Axis &amp; Turning</h2>
-                <p class="text-slate-300 text-lg">Expand your CNC programming skills</p>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">CAM Solutions</h2>
+                <p class="text-slate-300 text-lg">CNC programming training — add slides from the dashboard</p>
             </div>
         </div>
-        <div class="carousel-slide flex-shrink-0 w-full h-full min-h-full bg-gradient-to-br from-slate-700 via-slate-800 to-amber-800/30 flex items-center justify-center">
-            <div class="text-center text-white px-4">
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2">Learn by Doing</h2>
-                <p class="text-slate-300 text-lg">Videos, models, and step-by-step tutorials</p>
-            </div>
-        </div>
+        @endforelse
     </div>
     <button type="button" id="carouselPrev" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition" aria-label="Previous">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

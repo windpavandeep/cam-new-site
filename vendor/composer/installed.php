@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '37909fe4b70cb0d8a178cff58f3b97d31499ccf3',
+        'reference' => 'e0370e6d270dd0aecff870bb4f7ea6d1ebd71979',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -400,7 +400,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '37909fe4b70cb0d8a178cff58f3b97d31499ccf3',
+            'reference' => 'e0370e6d270dd0aecff870bb4f7ea6d1ebd71979',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -793,8 +793,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -1294,6 +1294,15 @@
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'taylanunutmaz/agora-token-builder' => array(
+            'pretty_version' => 'v1.1',
+            'version' => '1.1.0.0',
+            'reference' => '53f127d63a396cfba063ba3e9cb07d855dd67502',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../taylanunutmaz/agora-token-builder',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.3.1',

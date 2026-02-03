@@ -18,6 +18,7 @@
 
             <form method="POST" action="{{ route('register') }}" class="space-y-4">
                 @csrf
+                <input type="hidden" name="role" value="student">
                 <div>
                     <label for="name" class="block text-sm font-medium text-slate-700 mb-1">Name</label>
                     <input type="text" name="name" id="name" value="{{ old('name') }}" required autofocus autocomplete="name" placeholder="Your name"

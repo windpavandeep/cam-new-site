@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\SliderSlide;
 use App\Models\Video;
 
 /**
@@ -49,10 +50,13 @@ class PageController extends Controller
             $milling = self::MILLING_VIDEOS_FALLBACK;
         }
 
+        $slider_slides = SliderSlide::query()->orderBy('sort_order')->orderBy('id')->get();
+
         return view('home', [
             'milling_videos' => $milling,
             'multiaxis_videos' => $multiaxis,
             'turning_videos' => $turning,
+            'slider_slides' => $slider_slides,
         ]);
     }
 
