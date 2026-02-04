@@ -27,14 +27,18 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="category" class="mb-1 block text-sm font-medium text-slate-700">Category</label>
-                        <select name="category" id="category" required
+                        <label for="category_id" class="mb-1 block text-sm font-medium text-slate-700">Category</label>
+                        @if ($categories->isEmpty())
+                        <p class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">Add at least one category from <a href="{{ route('dashboard.categories.index') }}" class="font-medium underline">Categories</a> first.</p>
+                        @else
+                        <select name="category_id" id="category_id" required
                             class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
-                            @foreach ($categories as $value => $label)
-                            <option value="{{ $value }}" {{ old('category') === $value ? 'selected' : '' }}>{{ $label }}</option>
+                            @foreach ($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ (string) old('category_id') === (string) $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                             @endforeach
                         </select>
-                        @error('category')
+                        @endif
+                        @error('category_id')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -49,9 +53,24 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="pdf" class="mb-1 block text-sm font-medium text-slate-700">Model PDF (optional)</label>
+                    <label for="media_id" class="mb-1 block text-sm font-medium text-slate-700">Model from Media Library (optional)</label>
+                    <select name="media_id" id="media_id"
+                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                        <option value="">— None —</option>
+                        @foreach ($media as $m)
+                        <option value="{{ $m->id }}" {{ (string) old('media_id') === (string) $m->id ? 'selected' : '' }}>{{ $m->original_name }}{{ $m->tooltip ? ' · ' . \Illuminate\Support\Str::limit($m->tooltip, 40) : '' }}</option>
+                        @endforeach
+                    </select>
+                    <p class="mt-1 text-xs text-slate-500">Assign a file from the Media Library as this video's model (e.g. PDF). Upload to Media Library first if needed.</p>
+                    @error('media_id')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div>
+                    <label for="pdf" class="mb-1 block text-sm font-medium text-slate-700">Or upload Model PDF (optional)</label>
                     <input type="file" name="pdf" id="pdf" accept=".pdf,application/pdf"
                         class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 file:mr-3 file:rounded file:border-0 file:bg-amber-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-amber-700 hover:file:bg-amber-100 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    <p class="mt-1 text-xs text-slate-500">Legacy: upload a PDF directly. If you select from Media Library above, that takes precedence.</p>
                     @error('pdf')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -64,10 +83,10 @@
 
         {{-- Videos by category --}}
         <div class="space-y-6">
-            @foreach (['milling' => 'Milling', 'multi_axis' => 'Multi-Axis', 'turning' => 'Turning'] as $cat_key => $cat_label)
+            @foreach ($categories as $cat)
             <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h2 class="mb-4 text-lg font-semibold text-slate-800">{{ $cat_label }}</h2>
-                @php $videos = $videos_by_category[$cat_key] ?? collect(); @endphp
+                <h2 class="mb-4 text-lg font-semibold text-slate-800">{{ $cat->name }}</h2>
+                @php $videos = $videos_by_category[$cat->id] ?? collect(); @endphp
                 @if ($videos->isEmpty())
                 <p class="text-slate-500 text-sm">No videos yet. Add one above.</p>
                 @else
@@ -80,7 +99,7 @@
                             </a>
                             <div class="min-w-0">
                                 <p class="font-medium text-slate-800 truncate">{{ $video->title }}</p>
-                                <p class="text-xs text-slate-500">{{ $video->youtube_id }}{{ $video->pdf ? ' · ' . $video->pdf : '' }}</p>
+                                <p class="text-xs text-slate-500">{{ $video->youtube_id }}{{ $video->media_id && $video->media ? ' · Media: ' . $video->media->original_name : ($video->pdf ? ' · ' . $video->pdf : '') }}</p>
                             </div>
                         </div>
                         <form method="POST" action="{{ route('dashboard.videos.destroy', $video) }}" class="flex-shrink-0" onsubmit="return confirm('Remove this video?');">

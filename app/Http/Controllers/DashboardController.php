@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use App\Models\Video;
+use App\Models\VideoCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -18,19 +20,19 @@ class DashboardController extends Controller
             abort(403, 'Access denied. Admin only.');
         }
 
+        $categories = VideoCategory::query()->orderBy('sort_order')->orderBy('id')->get();
         $videos = Video::query()
-            ->orderBy('category')
+            ->with(['media', 'category'])
             ->orderBy('title')
             ->get()
-            ->groupBy('category');
+            ->groupBy('category_id');
+
+        $media = Media::query()->orderBy('original_name')->get();
 
         return view('dashboard.index', [
-            'videos_by_category' => [
-                Video::CATEGORY_MILLING => $videos->get(Video::CATEGORY_MILLING, collect()),
-                Video::CATEGORY_MULTI_AXIS => $videos->get(Video::CATEGORY_MULTI_AXIS, collect()),
-                Video::CATEGORY_TURNING => $videos->get(Video::CATEGORY_TURNING, collect()),
-            ],
-            'categories' => Video::categories(),
+            'categories' => $categories,
+            'videos_by_category' => $videos,
+            'media' => $media,
         ]);
     }
 
@@ -43,8 +45,9 @@ class DashboardController extends Controller
         $validated = $request->validate([
             'youtube_id' => ['required', 'string', 'max:20'],
             'title' => ['required', 'string', 'max:255'],
+            'media_id' => ['nullable', 'integer', 'exists:media,id'],
             'pdf' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
-            'category' => ['required', 'string', 'in:milling,multi_axis,turning'],
+            'category_id' => ['required', 'integer', 'exists:video_categories,id'],
         ]);
 
         $pdf_filename = null;
@@ -57,8 +60,9 @@ class DashboardController extends Controller
         Video::create([
             'youtube_id' => $validated['youtube_id'],
             'title' => $validated['title'],
+            'media_id' => $validated['media_id'] ?? null,
             'pdf' => $pdf_filename,
-            'category' => $validated['category'],
+            'category_id' => $validated['category_id'],
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Video added.');

@@ -42,27 +42,22 @@
         </div>
     </section>
 
-    {{-- 3. Tabs: Milling (default), Multi Axis, Turning --}}
+    {{-- 3. Tabs: dynamic categories --}}
     <section>
-        <div class="flex border-b border-slate-200 gap-1 mb-6" role="tablist">
-            <button type="button" role="tab" id="tab-milling" aria-selected="true" aria-controls="panel-milling"
-                class="tab-btn px-5 py-3 font-medium text-sm rounded-t-lg border-b-2 border-amber-500 bg-amber-50 text-amber-700 -mb-px">
-                Milling
+        @if (!empty($categories_with_videos))
+        <div class="flex flex-wrap border-b border-slate-200 gap-1 mb-6" role="tablist">
+            @foreach ($categories_with_videos as $index => $cat)
+            <button type="button" role="tab" id="tab-{{ $cat['slug'] }}" aria-selected="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="panel-{{ $cat['slug'] }}"
+                class="tab-btn px-5 py-3 font-medium text-sm rounded-t-lg border-b-2 -mb-px {{ $index === 0 ? 'border-amber-500 bg-amber-50 text-amber-700' : 'border-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-800' }}">
+                {{ $cat['name'] }}
             </button>
-            <button type="button" role="tab" id="tab-multiaxis" aria-selected="false" aria-controls="panel-multiaxis"
-                class="tab-btn px-5 py-3 font-medium text-sm rounded-t-lg border-b-2 border-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-800 -mb-px">
-                Multi Axis
-            </button>
-            <button type="button" role="tab" id="tab-turning" aria-selected="false" aria-controls="panel-turning"
-                class="tab-btn px-5 py-3 font-medium text-sm rounded-t-lg border-b-2 border-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-800 -mb-px">
-                Turning
-            </button>
+            @endforeach
         </div>
 
-        {{-- Milling panel (default visible) --}}
-        <div id="panel-milling" role="tabpanel" class="tab-panel">
+        @foreach ($categories_with_videos as $index => $cat)
+        <div id="panel-{{ $cat['slug'] }}" role="tabpanel" class="tab-panel {{ $index === 0 ? '' : 'hidden' }}">
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @foreach ($milling_videos as $video)
+                @forelse ($cat['videos'] as $video)
                 <article class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition">
                     <button type="button" class="video-modal-trigger block w-full aspect-video bg-slate-200 cursor-pointer text-left border-0 p-0"
                         data-youtube-id="{{ $video['id'] }}" aria-label="Play {{ $video['title'] }}">
@@ -71,36 +66,10 @@
                     </button>
                     <div class="p-4">
                         <h3 class="font-semibold text-slate-800 mb-3 line-clamp-2">{{ $video['title'] }}</h3>
-                        @if(!empty($video['pdf']))
-                        <a href="{{ route('download.model', ['filename' => $video['pdf']]) }}"
-                            class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            Download Model PDF
-                        </a>
-                        @endif
-                    </div>
-                </article>
-                @endforeach
-            </div>
-        </div>
-
-        {{-- Multi Axis panel --}}
-        <div id="panel-multiaxis" role="tabpanel" class="tab-panel hidden">
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @forelse ($multiaxis_videos as $video)
-                <article class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition">
-                    <button type="button" class="video-modal-trigger block w-full aspect-video bg-slate-200 cursor-pointer text-left border-0 p-0"
-                        data-youtube-id="{{ $video['id'] }}" aria-label="Play {{ $video['title'] }}">
-                        <img src="https://img.youtube.com/vi/{{ $video['id'] }}/mqdefault.jpg" alt="{{ $video['title'] }}"
-                            class="w-full h-full object-cover" loading="lazy">
-                    </button>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-slate-800 mb-3 line-clamp-2">{{ $video['title'] }}</h3>
-                        @if(!empty($video['pdf']))
-                        <a href="{{ route('download.model', ['filename' => $video['pdf']]) }}"
-                            class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition">
+                        @if(!empty($video['download_path']))
+                        <a href="{{ route('download.model', ['path' => $video['download_path']]) }}"
+                            class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition"
+                            @if(!empty($video['tooltip'])) title="{{ $video['tooltip'] }}" @endif>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                             </svg>
@@ -111,44 +80,19 @@
                 </article>
                 @empty
                 <div class="col-span-full bg-slate-100 rounded-xl border border-slate-200 p-8 text-center text-slate-600">
-                    <p class="text-lg font-medium">Multi Axis content coming soon.</p>
-                    <p class="mt-2">Check back for 4-axis and 5-axis Mastercam tutorials.</p>
+                    <p class="text-lg font-medium">{{ $cat['name'] }} content coming soon.</p>
+                    <p class="mt-2">Add videos from the dashboard.</p>
                 </div>
                 @endforelse
             </div>
         </div>
-
-        {{-- Turning panel --}}
-        <div id="panel-turning" role="tabpanel" class="tab-panel hidden">
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @forelse ($turning_videos as $video)
-                <article class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition">
-                    <button type="button" class="video-modal-trigger block w-full aspect-video bg-slate-200 cursor-pointer text-left border-0 p-0"
-                        data-youtube-id="{{ $video['id'] }}" aria-label="Play {{ $video['title'] }}">
-                        <img src="https://img.youtube.com/vi/{{ $video['id'] }}/mqdefault.jpg" alt="{{ $video['title'] }}"
-                            class="w-full h-full object-cover" loading="lazy">
-                    </button>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-slate-800 mb-3 line-clamp-2">{{ $video['title'] }}</h3>
-                        @if(!empty($video['pdf']))
-                        <a href="{{ route('download.model', ['filename' => $video['pdf']]) }}"
-                            class="inline-flex items-center gap-2 px-4 py-2 bg-amber-500 text-white text-sm font-medium rounded-lg hover:bg-amber-600 transition">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                            Download Model PDF
-                        </a>
-                        @endif
-                    </div>
-                </article>
-                @empty
-                <div class="col-span-full bg-slate-100 rounded-xl border border-slate-200 p-8 text-center text-slate-600">
-                    <p class="text-lg font-medium">Turning content coming soon.</p>
-                    <p class="mt-2">Lathe and turning tutorials will be available here.</p>
-                </div>
-                @endforelse
-            </div>
+        @endforeach
+        @else
+        <div class="bg-slate-100 rounded-xl border border-slate-200 p-8 text-center text-slate-600">
+            <p class="text-lg font-medium">No categories yet.</p>
+            <p class="mt-2">Add categories and videos from the dashboard.</p>
         </div>
+        @endif
     </section>
 </div>
 
@@ -216,8 +160,11 @@
             }, 5000);
         }
 
-        // --- Tabs ---
-        var tabIds = ['milling', 'multiaxis', 'turning'];
+        // --- Tabs (dynamic categories) ---
+        var tabIds = Array.from(document.querySelectorAll('.tab-btn')).map(function(btn) {
+            var id = btn.getAttribute('id');
+            return id ? id.replace('tab-', '') : '';
+        }).filter(Boolean);
         tabIds.forEach(function(id) {
             var btn = document.getElementById('tab-' + id);
             var panel = document.getElementById('panel-' + id);

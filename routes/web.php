@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VideoCategoryController;
 use Illuminate\Support\Facades\Route;
 
 $prefix = trim((string) config('site.path', ''), '/');
@@ -16,7 +18,7 @@ Route::prefix($prefix)->group(function () {
     Route::get('/about', [PageController::class, 'about'])->name('about');
     Route::get('/contact', [PageController::class, 'contact'])->name('contact');
     Route::get('/models-draw', [PageController::class, 'models'])->name('models');
-    Route::get('/download/model/{filename}', [PageController::class, 'downloadModel'])->name('download.model');
+    Route::get('/download/model/{path}', [PageController::class, 'downloadModel'])->name('download.model')->where('path', '.*');
 
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -28,8 +30,17 @@ Route::prefix($prefix)->group(function () {
     Route::middleware('auth')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/categories', [VideoCategoryController::class, 'index'])->name('dashboard.categories.index');
+        Route::post('/dashboard/categories', [VideoCategoryController::class, 'store'])->name('dashboard.categories.store');
+        Route::put('/dashboard/categories/reorder', [VideoCategoryController::class, 'reorder'])->name('dashboard.categories.reorder');
+        Route::put('/dashboard/categories/{category}', [VideoCategoryController::class, 'update'])->name('dashboard.categories.update');
+        Route::delete('/dashboard/categories/{category}', [VideoCategoryController::class, 'destroy'])->name('dashboard.categories.destroy');
         Route::post('/dashboard/videos', [DashboardController::class, 'store'])->name('dashboard.videos.store');
         Route::delete('/dashboard/videos/{video}', [DashboardController::class, 'destroy'])->name('dashboard.videos.destroy');
+        Route::get('/dashboard/media', [MediaController::class, 'index'])->name('dashboard.media.index');
+        Route::post('/dashboard/media', [MediaController::class, 'store'])->name('dashboard.media.store');
+        Route::put('/dashboard/media/{media}', [MediaController::class, 'update'])->name('dashboard.media.update');
+        Route::delete('/dashboard/media/{media}', [MediaController::class, 'destroy'])->name('dashboard.media.destroy');
         Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider.index');
         Route::post('/dashboard/slider', [SliderController::class, 'store'])->name('dashboard.slider.store');
         Route::delete('/dashboard/slider/{slide}', [SliderController::class, 'destroy'])->name('dashboard.slider.destroy');
