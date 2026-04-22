@@ -1,8 +1,8 @@
-<header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+<header class="sticky top-0 z-50 border-b border-cyan-400/20 bg-slate-950/85 text-white shadow-[0_8px_30px_rgba(2,6,23,0.7)] backdrop-blur-md">
     <div class="container mx-auto px-4 h-16 flex items-center justify-between">
         {{-- Logo (left) --}}
-        <a href="{{ route('home') }}" class="flex items-center gap-2 font-bold text-lg tracking-tight">
-            <span class="text-2xl text-amber-400">◇</span>
+        <a href="{{ route('home') }}" class="flex items-center gap-2 font-bold text-lg tracking-[0.02em]">
+            <span class="text-2xl text-cyan-300">◇</span>
             <span>CAM Solutions</span>
         </a>
 
@@ -14,6 +14,8 @@
                class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('videos') ? 'bg-slate-700 text-amber-400' : 'text-slate-200 hover:bg-slate-800 hover:text-white' }}">Videos</a>
             <a href="{{ route('about') }}"
                class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('about') ? 'bg-slate-700 text-amber-400' : 'text-slate-200 hover:bg-slate-800 hover:text-white' }}">About Us</a>
+            <a href="{{ route('jobs.index') }}"
+               class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('jobs.*') ? 'bg-slate-700 text-amber-400' : 'text-slate-200 hover:bg-slate-800 hover:text-white' }}">Find jobs</a>
             <a href="{{ route('contact') }}"
                class="px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('contact') ? 'bg-slate-700 text-amber-400' : 'text-slate-200 hover:bg-slate-800 hover:text-white' }}">Contact Us</a>
             <a href="{{ route('models') }}"

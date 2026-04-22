@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Support\PublicAsset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -32,7 +33,7 @@ class Media extends Model
     /** Public URL for the main file. */
     public function getUrlAttribute(): string
     {
-        return (string) asset($this->path);
+        return PublicAsset::url((string) $this->path);
     }
 
     /** Public URL for the thumbnail, or null if not set. */
@@ -42,7 +43,7 @@ class Media extends Model
             return null;
         }
 
-        return (string) asset($this->thumbnail_path);
+        return PublicAsset::url((string) $this->thumbnail_path);
     }
 
     /** Whether this media has a thumbnail. */

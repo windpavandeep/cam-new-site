@@ -16,8 +16,8 @@
     @endif
 
     <div class="rounded-xl border border-amber-200 bg-amber-50/80 px-4 py-3 mb-6 text-sm text-amber-800">
-        <p class="font-medium">Upload files to the global media library. Set a <strong>thumbnail</strong> and <strong>tooltip</strong> for each item. Media can be assigned to YouTube videos (Videos) as the model PDF for that video.</p>
-        <p class="mt-1 text-amber-700">Allowed: PDF, JPG, PNG, GIF, WebP. Max file size: 10 MB. Thumbnail max: 2 MB.</p>
+        <p class="font-medium">Upload files to the global media library. Set a <strong>thumbnail</strong> and <strong>tooltip</strong> for each item. Media can be assigned to YouTube videos (Videos) as the model file for that video.</p>
+        <p class="mt-1 text-amber-700">All file types allowed. Max file size: 100 MB. Thumbnail max: 2 MB.</p>
     </div>
 
     <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mb-8">
@@ -27,7 +27,6 @@
             <div>
                 <label for="file" class="mb-1 block text-sm font-medium text-slate-700">File</label>
                 <input type="file" name="file" id="file" required
-                    accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,application/pdf,image/jpeg,image/png,image/gif,image/webp"
                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 file:mr-3 file:rounded file:border-0 file:bg-amber-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-amber-700 hover:file:bg-amber-100 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
                 @error('file')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -36,7 +35,7 @@
             <div>
                 <label for="tooltip" class="mb-1 block text-sm font-medium text-slate-700">Tooltip (optional)</label>
                 <input type="text" name="tooltip" id="tooltip" value="{{ old('tooltip') }}" maxlength="500"
-                    placeholder="Short description shown on hover"
+                    placeholder="Short description shown on hover"d
                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
                 @error('tooltip')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -69,7 +68,7 @@
             <li class="flex flex-wrap items-center gap-4 p-4 sm:p-6">
                 <div class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-slate-200 flex items-center justify-center">
                     @if ($item->thumbnail_url)
-                        <img src="{{ asset($item->thumbnail_path) }}" alt="" class="w-full h-full object-cover">
+                        <img src="{{ \App\Support\PublicAsset::url($item->thumbnail_path) }}" alt="" class="w-full h-full object-cover">
                     @else
                         <span class="text-2xl text-slate-400" title="No thumbnail">📄</span>
                     @endif

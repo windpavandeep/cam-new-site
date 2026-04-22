@@ -15,6 +15,7 @@ class Video extends Model
         'pdf',
         'category_id',
         'media_id',
+        'sort_order',
     ];
 
     public function category(): BelongsTo

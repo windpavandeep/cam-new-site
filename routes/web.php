@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactMessageController;
+use App\Http\Controllers\ContactSettingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JobAdminController;
+use App\Http\Controllers\JobApplicationAdminController;
+use App\Http\Controllers\JobOpeningController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\PageController;
@@ -17,8 +22,11 @@ Route::prefix($prefix)->group(function () {
     Route::get('/videos', [PageController::class, 'videos'])->name('videos');
     Route::get('/about', [PageController::class, 'about'])->name('about');
     Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+    Route::post('/contact', [PageController::class, 'contactSubmit'])->name('contact.submit');
     Route::get('/models-draw', [PageController::class, 'models'])->name('models');
-    Route::get('/download/model/{path}', [PageController::class, 'downloadModel'])->name('download.model')->where('path', '.*');
+    Route::get('/jobs', [JobOpeningController::class, 'index'])->name('jobs.index');
+    Route::get('/jobs/{job:slug}', [JobOpeningController::class, 'show'])->name('jobs.show');
+    Route::post('/jobs/{job:slug}/apply', [JobOpeningController::class, 'apply'])->name('jobs.apply');
 
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -28,6 +36,8 @@ Route::prefix($prefix)->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
+        Route::post('/download/model/track', [PageController::class, 'trackModelDownload'])->name('download.model.track');
+        Route::get('/download/model/{path}', [PageController::class, 'downloadModel'])->name('download.model')->where('path', '.*');
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/dashboard/categories', [VideoCategoryController::class, 'index'])->name('dashboard.categories.index');
@@ -36,6 +46,7 @@ Route::prefix($prefix)->group(function () {
         Route::put('/dashboard/categories/{category}', [VideoCategoryController::class, 'update'])->name('dashboard.categories.update');
         Route::delete('/dashboard/categories/{category}', [VideoCategoryController::class, 'destroy'])->name('dashboard.categories.destroy');
         Route::post('/dashboard/videos', [DashboardController::class, 'store'])->name('dashboard.videos.store');
+        Route::put('/dashboard/videos/reorder', [DashboardController::class, 'reorderVideos'])->name('dashboard.videos.reorder');
         Route::delete('/dashboard/videos/{video}', [DashboardController::class, 'destroy'])->name('dashboard.videos.destroy');
         Route::get('/dashboard/media', [MediaController::class, 'index'])->name('dashboard.media.index');
         Route::post('/dashboard/media', [MediaController::class, 'store'])->name('dashboard.media.store');
@@ -44,6 +55,21 @@ Route::prefix($prefix)->group(function () {
         Route::get('/dashboard/slider', [SliderController::class, 'index'])->name('dashboard.slider.index');
         Route::post('/dashboard/slider', [SliderController::class, 'store'])->name('dashboard.slider.store');
         Route::delete('/dashboard/slider/{slide}', [SliderController::class, 'destroy'])->name('dashboard.slider.destroy');
+        Route::get('/dashboard/contact-settings', [ContactSettingController::class, 'edit'])->name('dashboard.contact-settings.edit');
+        Route::put('/dashboard/contact-settings', [ContactSettingController::class, 'update'])->name('dashboard.contact-settings.update');
+        Route::get('/dashboard/contact-messages', [ContactMessageController::class, 'index'])->name('dashboard.contact-messages.index');
+        Route::get('/dashboard/contact-messages/{contact_message}', [ContactMessageController::class, 'show'])->name('dashboard.contact-messages.show');
+        Route::delete('/dashboard/contact-messages/{contact_message}', [ContactMessageController::class, 'destroy'])->name('dashboard.contact-messages.destroy');
+        Route::get('/dashboard/jobs', [JobAdminController::class, 'index'])->name('dashboard.jobs.index');
+        Route::get('/dashboard/jobs/create', [JobAdminController::class, 'create'])->name('dashboard.jobs.create');
+        Route::post('/dashboard/jobs', [JobAdminController::class, 'store'])->name('dashboard.jobs.store');
+        Route::get('/dashboard/jobs/{job}/edit', [JobAdminController::class, 'edit'])->name('dashboard.jobs.edit');
+        Route::put('/dashboard/jobs/{job}', [JobAdminController::class, 'update'])->name('dashboard.jobs.update');
+        Route::delete('/dashboard/jobs/{job}', [JobAdminController::class, 'destroy'])->name('dashboard.jobs.destroy');
+        Route::get('/dashboard/job-applications', [JobApplicationAdminController::class, 'index'])->name('dashboard.job-applications.index');
+        Route::get('/dashboard/job-applications/{job_application}', [JobApplicationAdminController::class, 'show'])->name('dashboard.job-applications.show');
+        Route::get('/dashboard/job-applications/{job_application}/cv', [JobApplicationAdminController::class, 'downloadCv'])->name('dashboard.job-applications.cv');
+        Route::delete('/dashboard/job-applications/{job_application}', [JobApplicationAdminController::class, 'destroy'])->name('dashboard.job-applications.destroy');
 
         Route::get('/meetings', [MeetingController::class, 'index'])->name('meetings.index');
         Route::get('/meetings/create', [MeetingController::class, 'create'])->name('meetings.create');

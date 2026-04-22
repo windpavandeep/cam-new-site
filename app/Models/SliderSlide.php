@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Support\PublicAsset;
 use Illuminate\Database\Eloquent\Model;
 
 class SliderSlide extends Model
@@ -20,9 +21,9 @@ class SliderSlide extends Model
         ];
     }
 
-    /** URL for the slide image (stored in public/slider). */
+    /** URL for the slide image (stored under public/slider on disk). */
     public function getImageUrlAttribute(): string
     {
-        return (string) asset($this->image);
+        return PublicAsset::url((string) $this->image);
     }
 }

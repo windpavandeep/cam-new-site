@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\SliderSlide;
+use App\Support\PublicAsset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -36,6 +37,13 @@ class SliderController extends Controller
             abort(403, 'Access denied. Admin only.');
         }
 
+        if (PublicAsset::likelyPhpUploadLimitRejected($request, 'image')) {
+            return redirect()->route('dashboard.slider.index')->with(
+                'error',
+                'The image never reached the application (often PHP limits on cPanel). '.PublicAsset::phpUploadLimitsHint()
+            );
+        }
+
         $validated = $request->validate([
             'image' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:5120'], // 5MB max
         ], [
@@ -43,16 +51,21 @@ class SliderController extends Controller
         ]);
 
         $file = $request->file('image');
-        $dir = public_path('slider');
-        if (! is_dir($dir)) {
-            mkdir($dir, 0755, true);
+        $dir_error = PublicAsset::ensureWritablePublicDirectory('slider');
+        if ($dir_error !== null) {
+            return redirect()->route('dashboard.slider.index')->with('error', $dir_error);
         }
+        $dir = PublicAsset::diskPath('slider');
         $ext = strtolower($file->getClientOriginalExtension() ?: 'jpg');
         if (! in_array($ext, ['jpg', 'jpeg', 'png'], true)) {
             $ext = 'jpg';
         }
         $filename = Str::random(40) . '.' . $ext;
-        $file->move($dir, $filename);
+        try {
+            $file->move($dir, $filename);
+        } catch (\Throwable $e) {
+            return redirect()->route('dashboard.slider.index')->with('error', 'Could not save the image: '.$e->getMessage());
+        }
         $path = 'slider/' . $filename;
 
         $maxOrder = (int) SliderSlide::query()->max('sort_order');
@@ -70,7 +83,7 @@ class SliderController extends Controller
             abort(403, 'Access denied. Admin only.');
         }
 
-        $fullPath = public_path($slide->image);
+        $fullPath = PublicAsset::diskPath($slide->image);
         if (is_file($fullPath)) {
             unlink($fullPath);
         }

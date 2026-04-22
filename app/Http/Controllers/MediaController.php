@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Models\Media;
+use App\Support\PublicAsset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,17 +17,8 @@ use Illuminate\View\View;
  */
 class MediaController extends Controller
 {
-    /** Allowed mime types for main file (e.g. PDF for model uploads). */
-    private const array ALLOWED_MIMES = [
-        'application/pdf',
-        'image/jpeg',
-        'image/png',
-        'image/gif',
-        'image/webp',
-    ];
-
-    /** Max file size in KB (10 MB). */
-    private const int MAX_FILE_KB = 10240;
+    /** Max file size in KB (100 MB). */
+    private const int MAX_FILE_KB = 102400;
 
     /** Max thumbnail size in KB (2 MB). */
     private const int MAX_THUMBNAIL_KB = 2048;
@@ -53,6 +45,13 @@ class MediaController extends Controller
             abort(403, 'Access denied. Admin only.');
         }
 
+        if (PublicAsset::likelyPhpUploadLimitRejected($request, 'file')) {
+            return redirect()->route('dashboard.media.index')->with(
+                'error',
+                'The file never reached the application (often PHP limits on cPanel). '.PublicAsset::phpUploadLimitsHint()
+            );
+        }
+
         $validated = $request->validate([
             'file' => ['required', 'file', 'max:' . self::MAX_FILE_KB],
             'tooltip' => ['nullable', 'string', 'max:500'],
@@ -63,34 +62,42 @@ class MediaController extends Controller
 
         $file = $request->file('file');
         $mime = $file->getMimeType();
-        if (! in_array($mime, self::ALLOWED_MIMES, true)) {
-            return redirect()->route('dashboard.media.index')
-                ->withInput()
-                ->with('error', 'Allowed file types: PDF, JPG, PNG, GIF, WebP.');
-        }
-
         $size = $file->getSize();
         $original_name = $file->getClientOriginalName();
 
-        $dir = public_path('media');
-        if (! is_dir($dir)) {
-            mkdir($dir, 0755, true);
+        $dir_error = PublicAsset::ensureWritablePublicDirectory('media');
+        if ($dir_error !== null) {
+            return redirect()->route('dashboard.media.index')->with('error', $dir_error);
         }
+        $dir = PublicAsset::diskPath('media');
         $ext = $file->getClientOriginalExtension() ?: Str::after($mime, '/');
         $filename = Str::ulid() . '.' . strtolower($ext);
-        $file->move($dir, $filename);
+        try {
+            $file->move($dir, $filename);
+        } catch (\Throwable $e) {
+            return redirect()->route('dashboard.media.index')->with('error', 'Could not save the file: '.$e->getMessage());
+        }
         $path = 'media/' . $filename;
 
         $thumbnail_path = null;
         if ($request->hasFile('thumbnail')) {
-            $thumb_dir = public_path('media/thumbnails');
-            if (! is_dir($thumb_dir)) {
-                mkdir($thumb_dir, 0755, true);
+            $thumb_err = PublicAsset::ensureWritablePublicDirectory('media/thumbnails');
+            if ($thumb_err !== null) {
+                @unlink(PublicAsset::diskPath($path));
+
+                return redirect()->route('dashboard.media.index')->with('error', $thumb_err);
             }
+            $thumb_dir = PublicAsset::diskPath('media/thumbnails');
             $thumb_file = $request->file('thumbnail');
             $thumb_ext = $thumb_file->getClientOriginalExtension() ?: 'jpg';
             $thumb_filename = Str::ulid() . '.' . strtolower($thumb_ext);
-            $thumb_file->move($thumb_dir, $thumb_filename);
+            try {
+                $thumb_file->move($thumb_dir, $thumb_filename);
+            } catch (\Throwable $e) {
+                @unlink(PublicAsset::diskPath($path));
+
+                return redirect()->route('dashboard.media.index')->with('error', 'Could not save thumbnail: '.$e->getMessage());
+            }
             $thumbnail_path = 'media/thumbnails/' . $thumb_filename;
         }
 
@@ -120,17 +127,22 @@ class MediaController extends Controller
         $media->tooltip = $validated['tooltip'] ?? $media->tooltip;
 
         if ($request->hasFile('thumbnail')) {
-            $thumb_dir = public_path('media/thumbnails');
-            if (! is_dir($thumb_dir)) {
-                mkdir($thumb_dir, 0755, true);
+            $thumb_err = PublicAsset::ensureWritablePublicDirectory('media/thumbnails');
+            if ($thumb_err !== null) {
+                return redirect()->route('dashboard.media.index')->with('error', $thumb_err);
             }
-            if ($media->thumbnail_path && is_file(public_path($media->thumbnail_path))) {
-                @unlink(public_path($media->thumbnail_path));
+            $thumb_dir = PublicAsset::diskPath('media/thumbnails');
+            if ($media->thumbnail_path && is_file(PublicAsset::diskPath($media->thumbnail_path))) {
+                @unlink(PublicAsset::diskPath($media->thumbnail_path));
             }
             $thumb_file = $request->file('thumbnail');
             $thumb_ext = $thumb_file->getClientOriginalExtension() ?: 'jpg';
             $thumb_filename = Str::ulid() . '.' . strtolower($thumb_ext);
-            $thumb_file->move($thumb_dir, $thumb_filename);
+            try {
+                $thumb_file->move($thumb_dir, $thumb_filename);
+            } catch (\Throwable $e) {
+                return redirect()->route('dashboard.media.index')->with('error', 'Could not save thumbnail: '.$e->getMessage());
+            }
             $media->thumbnail_path = 'media/thumbnails/' . $thumb_filename;
         }
 
@@ -150,11 +162,11 @@ class MediaController extends Controller
                 ->with('error', 'Cannot delete: this media is assigned to one or more videos. Unassign it first.');
         }
 
-        if (is_file(public_path($media->path))) {
-            @unlink(public_path($media->path));
+        if (is_file(PublicAsset::diskPath($media->path))) {
+            @unlink(PublicAsset::diskPath($media->path));
         }
-        if ($media->thumbnail_path && is_file(public_path($media->thumbnail_path))) {
-            @unlink(public_path($media->thumbnail_path));
+        if ($media->thumbnail_path && is_file(PublicAsset::diskPath($media->thumbnail_path))) {
+            @unlink(PublicAsset::diskPath($media->thumbnail_path));
         }
         $media->delete();
 

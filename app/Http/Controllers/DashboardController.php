@@ -7,9 +7,9 @@ namespace App\Http\Controllers;
 use App\Models\Media;
 use App\Models\Video;
 use App\Models\VideoCategory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -23,7 +23,9 @@ class DashboardController extends Controller
         $categories = VideoCategory::query()->orderBy('sort_order')->orderBy('id')->get();
         $videos = Video::query()
             ->with(['media', 'category'])
+            ->orderBy('sort_order')
             ->orderBy('title')
+            ->orderBy('id')
             ->get()
             ->groupBy('category_id');
 
@@ -46,23 +48,18 @@ class DashboardController extends Controller
             'youtube_id' => ['required', 'string', 'max:20'],
             'title' => ['required', 'string', 'max:255'],
             'media_id' => ['nullable', 'integer', 'exists:media,id'],
-            'pdf' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
             'category_id' => ['required', 'integer', 'exists:video_categories,id'],
         ]);
 
-        $pdf_filename = null;
-        if ($request->hasFile('pdf')) {
-            $file = $request->file('pdf');
-            $pdf_filename = Str::ulid() . '.pdf';
-            $file->move(public_path('models'), $pdf_filename);
-        }
+        $max_order = (int) Video::query()->where('category_id', $validated['category_id'])->max('sort_order');
 
         Video::create([
             'youtube_id' => $validated['youtube_id'],
             'title' => $validated['title'],
             'media_id' => $validated['media_id'] ?? null,
-            'pdf' => $pdf_filename,
+            'pdf' => null,
             'category_id' => $validated['category_id'],
+            'sort_order' => $max_order + 1,
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Video added.');
@@ -77,5 +74,36 @@ class DashboardController extends Controller
         $video->delete();
 
         return redirect()->route('dashboard')->with('success', 'Video removed.');
+    }
+
+    public function reorderVideos(Request $request): JsonResponse
+    {
+        if (! auth()->user()->isAdmin()) {
+            abort(403, 'Access denied. Admin only.');
+        }
+
+        $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:video_categories,id'],
+            'order' => ['required', 'array', 'min:1'],
+            'order.*' => ['integer', 'exists:videos,id'],
+        ]);
+
+        $category_id = (int) $validated['category_id'];
+        $order = array_map(static fn ($id): int => (int) $id, $validated['order']);
+        $expected = Video::query()->where('category_id', $category_id)->pluck('id')->sort()->values()->all();
+        $sorted_order = collect($order)->sort()->values()->all();
+
+        if ($expected !== $sorted_order || count($order) !== count($expected)) {
+            return response()->json(['message' => 'Invalid order for this category.'], 422);
+        }
+
+        foreach ($order as $position => $video_id) {
+            Video::query()
+                ->where('id', $video_id)
+                ->where('category_id', $category_id)
+                ->update(['sort_order' => $position + 1]);
+        }
+
+        return response()->json(['ok' => true, 'message' => 'Order saved.']);
     }
 }
