@@ -176,47 +176,41 @@ class PageController extends Controller
 
     public function models(): \Illuminate\Contracts\View\View
     {
-        $categories = VideoCategory::query()->orderBy('sort_order')->orderBy('id')->get()->keyBy('id');
-        $models = Video::query()
-            ->with(['media', 'category'])
-            ->where(fn ($q) => $q->whereNotNull('pdf')->orWhereNotNull('media_id'))
-            ->orderBy('sort_order')
-            ->orderBy('title')
-            ->orderBy('id')
+        $search = request()->string('q')->trim()->value();
+        $media_query = Media::query()
+            ->with(['videos.category'])
+            ->when($search !== '', function ($q) use ($search): void {
+                $like = '%' . $search . '%';
+                $q->where(function ($nested) use ($like): void {
+                    $nested
+                        ->where('original_name', 'like', $like)
+                        ->orWhere('tooltip', 'like', $like)
+                        ->orWhere('mime_type', 'like', $like)
+                        ->orWhereHas('videos', function ($video_q) use ($like): void {
+                            $video_q->where('title', 'like', $like);
+                        });
+                });
+            })
+            ->orderByDesc('id');
+
+        $models = $media_query
             ->get()
-            ->map(static function (Video $video) use ($categories): array {
-                $media = $video->media;
-                $category = $video->category;
+            ->map(static function (Media $media): array {
+                $first_video = $media->videos->first();
+                $category = $first_video?->category;
                 return [
-                    'title' => $video->title,
-                    'filename' => $media ? $media->original_name : $video->pdf,
-                    'category_id' => $video->category_id,
+                    'title' => $first_video?->title ?? pathinfo((string) $media->original_name, PATHINFO_FILENAME),
+                    'filename' => $media->original_name,
+                    'category_id' => $category?->id,
                     'category_name' => $category?->name,
-                    'download_path' => $video->download_path,
-                    'tooltip' => $media?->tooltip,
-                    'thumbnail_url' => $media?->thumbnail_url,
+                    'download_path' => 'media/' . $media->id,
+                    'tooltip' => $media->tooltip,
+                    'thumbnail_url' => $media->thumbnail_url,
+                    'mime_type' => $media->mime_type,
                 ];
             })
             ->values()
             ->all();
-
-        if (empty($models)) {
-            $first_category = $categories->first();
-            $models = array_map(
-                static function (array $item) use ($first_category): array {
-                    return [
-                        'title' => $item['title'],
-                        'filename' => $item['pdf'],
-                        'category_id' => $first_category?->id,
-                        'category_name' => $first_category?->name ?? 'Milling',
-                        'download_path' => 'file/' . $item['pdf'],
-                        'tooltip' => null,
-                        'thumbnail_url' => null,
-                    ];
-                },
-                self::FALLBACK_VIDEOS
-            );
-        }
 
         $path_keys = collect($models)->pluck('download_path')->filter()->unique()->values()->all();
         $counts = DownloadCounter::countsForPathKeys($path_keys);
@@ -225,11 +219,9 @@ class PageController extends Controller
             $models[$k]['downloads_count'] = $p ? (int) ($counts[$p] ?? 0) : 0;
         }
 
-        $categories_map = $categories->pluck('name', 'id')->all();
-
         return view('models', [
             'models' => $models,
-            'categories' => $categories_map,
+            'search' => $search,
         ]);
     }
 

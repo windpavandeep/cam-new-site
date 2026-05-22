@@ -66,7 +66,40 @@
         <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
             @foreach (['Mastercam', 'NX', 'SolidWorks', 'Edgecam', 'Artcam', 'SolidCAM'] as $tool)
                 <div class="rounded-xl border border-slate-700/70 bg-slate-950/70 px-3 py-4 text-center text-sm font-semibold text-slate-100 shadow-inner shadow-cyan-500/10">
-                    {{ $tool }}
+                    <span class="mx-auto mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-400/30 bg-cyan-500/10 text-cyan-300">
+                        @switch($tool)
+                            @case('Mastercam')
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 12h16M12 4v16M6.5 6.5l11 11M17.5 6.5l-11 11" />
+                                </svg>
+                                @break
+                            @case('NX')
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 18V6l6 6-6 6zm8-12h8l-8 12h8" />
+                                </svg>
+                                @break
+                            @case('SolidWorks')
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 15c2.5-4.5 6-7 10-8 2.5 1 4 2.5 6 5-2 3-4.5 5.5-8 7-4-.2-6.5-1.8-8-4z" />
+                                </svg>
+                                @break
+                            @case('Edgecam')
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 5h14v14H5zM5 12h8M13 5v14" />
+                                </svg>
+                                @break
+                            @case('Artcam')
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 4l7 16-7-4-7 4 7-16z" />
+                                </svg>
+                                @break
+                            @default
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3l2.4 2.6 3.5-.7.7 3.5L21 11l-2.4 2.2.7 3.5-3.5.7L12 20l-3.5-2.6-3.5.7.7-3.5L3 11l2.6-2.4.7-3.5 3.5.7L12 3z" />
+                                </svg>
+                        @endswitch
+                    </span>
+                    <span class="block">{{ $tool }}</span>
                 </div>
             @endforeach
         </div>
@@ -82,10 +115,10 @@
             <a href="{{ route('videos') }}" class="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200">View all courses &rarr;</a>
         </div>
         @if (!empty($categories_with_videos))
-        <div class="flex flex-wrap items-center border-b border-slate-700/80 gap-2 mb-6 md:mb-7" role="tablist">
+        <div class="mb-6 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-slate-700/70 bg-slate-900/60 p-2 md:mb-7" role="tablist">
             @foreach ($categories_with_videos as $index => $cat)
             <button type="button" role="tab" id="tab-{{ $cat['slug'] }}" aria-selected="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="panel-{{ $cat['slug'] }}"
-                class="tab-btn px-4 py-2.5 font-medium text-sm rounded-t-xl border-b-2 -mb-px transition {{ $index === 0 ? 'border-cyan-400 bg-cyan-500/15 text-cyan-200 shadow-sm' : 'border-transparent text-slate-400 hover:bg-slate-800/80 hover:text-slate-200' }}">
+                class="tab-btn rounded-xl border px-4 py-2.5 text-sm font-medium transition {{ $index === 0 ? 'border-cyan-400/70 bg-cyan-500/20 text-cyan-100 shadow-[0_0_0_1px_rgba(34,211,238,0.18)]' : 'border-slate-700/80 bg-slate-900/70 text-slate-400 hover:border-slate-500/70 hover:bg-slate-800/80 hover:text-slate-200' }}">
                 {{ $cat['name'] }}
             </button>
             @endforeach
@@ -460,10 +493,12 @@
                     var op = document.getElementById('panel-' + oid);
                     if (ob) {
                         ob.setAttribute('aria-selected', oid === id ? 'true' : 'false');
-                        ob.classList.toggle('border-cyan-400', oid === id);
-                        ob.classList.toggle('bg-cyan-500/15', oid === id);
-                        ob.classList.toggle('text-cyan-200', oid === id);
-                        ob.classList.toggle('border-transparent', oid !== id);
+                        ob.classList.toggle('border-cyan-400/70', oid === id);
+                        ob.classList.toggle('bg-cyan-500/20', oid === id);
+                        ob.classList.toggle('text-cyan-100', oid === id);
+                        ob.classList.toggle('shadow-[0_0_0_1px_rgba(34,211,238,0.18)]', oid === id);
+                        ob.classList.toggle('border-slate-700/80', oid !== id);
+                        ob.classList.toggle('bg-slate-900/70', oid !== id);
                         ob.classList.toggle('text-slate-400', oid !== id);
                     }
                     if (op) op.classList.toggle('hidden', oid !== id);

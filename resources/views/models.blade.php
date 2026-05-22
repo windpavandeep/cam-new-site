@@ -5,12 +5,28 @@
 @section('content')
     <div class="container mx-auto max-w-[1500px] px-4 py-10">
         <h1 class="mb-2 text-3xl font-bold text-slate-100">Models Draw</h1>
-        <p class="mb-8 text-slate-400">Download model PDFs linked to training videos. New models appear here automatically when added in the dashboard.</p>
+        <p class="mb-5 text-slate-400">Browse and download all media library items added by admin.</p>
+        <form method="GET" action="{{ route('models') }}" class="mb-8">
+            <div class="flex flex-col gap-3 sm:flex-row">
+                <input type="text" name="q" value="{{ $search ?? '' }}" placeholder="Search by file name, tooltip, type, or video title..."
+                    class="w-full rounded-xl border border-slate-600 bg-slate-950/70 px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500">
+                <button type="submit"
+                    class="inline-flex items-center justify-center rounded-xl bg-[#2563eb] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1d4ed8]">
+                    Search
+                </button>
+                @if (!empty($search))
+                <a href="{{ route('models') }}"
+                    class="inline-flex items-center justify-center rounded-xl border border-slate-600 bg-slate-900 px-5 py-2.5 text-sm font-medium text-slate-200 transition hover:border-cyan-400/60 hover:text-cyan-100">
+                    Clear
+                </a>
+                @endif
+            </div>
+        </form>
 
         @if (empty($models))
             <div class="rounded-xl border border-slate-700/70 bg-slate-900/70 p-8 text-center text-slate-400">
-                <p class="text-lg font-medium">No models available yet.</p>
-                <p class="mt-2 text-sm">Ask an administrator to attach model PDFs to training videos from the dashboard.</p>
+                <p class="text-lg font-medium">{{ !empty($search) ? 'No results found.' : 'No media items available yet.' }}</p>
+                <p class="mt-2 text-sm">{{ !empty($search) ? 'Try a different keyword.' : 'Ask an administrator to add items in the media library from the dashboard.' }}</p>
             </div>
         @else
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
@@ -39,7 +55,7 @@
                                     <svg class="h-3.5 w-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h10M7 16h6" />
                                     </svg>
-                                    Model PDF
+                                    {{ !empty($model['mime_type']) ? strtoupper((string) (str_contains($model['mime_type'], '/') ? explode('/', $model['mime_type'])[1] : $model['mime_type'])) : 'MEDIA' }}
                                 </span>
                                 <span class="inline-flex items-center gap-1.5">
                                     <svg class="h-3.5 w-3.5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
