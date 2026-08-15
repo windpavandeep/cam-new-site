@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CertificateLookupController;
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\ContactSettingController;
 use App\Http\Controllers\DashboardController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SliderController;
+use App\Http\Controllers\StudentCertificateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoCategoryController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +26,9 @@ Route::prefix($prefix)->group(function () {
     Route::get('/contact', [PageController::class, 'contact'])->name('contact');
     Route::post('/contact', [PageController::class, 'contactSubmit'])->name('contact.submit');
     Route::get('/models-draw', [PageController::class, 'models'])->name('models');
+    Route::get('/certificates', [CertificateLookupController::class, 'index'])->name('certificates.lookup');
+    Route::get('/certificates/{certificate}/view', [CertificateLookupController::class, 'viewFile'])->name('certificates.view');
+    Route::get('/certificates/{certificate}/download', [CertificateLookupController::class, 'download'])->name('certificates.download');
     Route::get('/jobs', [JobOpeningController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{job:slug}', [JobOpeningController::class, 'show'])->name('jobs.show');
     Route::post('/jobs/{job:slug}/apply', [JobOpeningController::class, 'apply'])->name('jobs.apply');
@@ -48,6 +53,10 @@ Route::prefix($prefix)->group(function () {
         Route::post('/dashboard/videos', [DashboardController::class, 'store'])->name('dashboard.videos.store');
         Route::put('/dashboard/videos/reorder', [DashboardController::class, 'reorderVideos'])->name('dashboard.videos.reorder');
         Route::delete('/dashboard/videos/{video}', [DashboardController::class, 'destroy'])->name('dashboard.videos.destroy');
+        Route::get('/dashboard/certificates', [StudentCertificateController::class, 'index'])->name('dashboard.certificates.index');
+        Route::post('/dashboard/certificates', [StudentCertificateController::class, 'store'])->name('dashboard.certificates.store');
+        Route::delete('/dashboard/certificates/{certificate}', [StudentCertificateController::class, 'destroy'])->name('dashboard.certificates.destroy');
+        Route::get('/dashboard/certificates/{certificate}/download', [StudentCertificateController::class, 'download'])->name('dashboard.certificates.download');
         Route::get('/dashboard/media', [MediaController::class, 'index'])->name('dashboard.media.index');
         Route::post('/dashboard/media', [MediaController::class, 'store'])->name('dashboard.media.store');
         Route::put('/dashboard/media/{media}', [MediaController::class, 'update'])->name('dashboard.media.update');

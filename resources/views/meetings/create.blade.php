@@ -12,7 +12,7 @@
                 <label for="title" class="mb-1 block text-sm font-medium text-slate-700">Meeting title</label>
                 <input type="text" name="title" id="title" value="{{ old('title') }}" required
                     placeholder="e.g. CNC Training Session"
-                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                 @error('title')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -22,11 +22,11 @@
                 <p class="mb-2 block text-sm font-medium text-slate-700">Meeting type</p>
                 <div class="flex gap-4">
                     <label class="inline-flex cursor-pointer items-center gap-2">
-                        <input type="radio" name="type" value="immediate" {{ old('type', 'immediate') === 'immediate' ? 'checked' : '' }} class="text-amber-500 focus:ring-amber-500">
+                        <input type="radio" name="type" value="immediate" {{ old('type', 'immediate') === 'immediate' ? 'checked' : '' }} class="text-sky-600 focus:ring-sky-500">
                         <span class="text-sm text-slate-700">Immediate</span>
                     </label>
                     <label class="inline-flex cursor-pointer items-center gap-2">
-                        <input type="radio" name="type" value="scheduled" {{ old('type') === 'scheduled' ? 'checked' : '' }} class="text-amber-500 focus:ring-amber-500">
+                        <input type="radio" name="type" value="scheduled" {{ old('type') === 'scheduled' ? 'checked' : '' }} class="text-sky-600 focus:ring-sky-500">
                         <span class="text-sm text-slate-700">Scheduled</span>
                     </label>
                 </div>
@@ -38,7 +38,7 @@
                     <label for="scheduled_at" class="mb-1 block text-sm font-medium text-slate-700">Date & time <span class="text-red-500">*</span></label>
                     <input type="datetime-local" name="scheduled_at" id="scheduled_at" value="{{ old('scheduled_at') }}"
                         min="{{ now()->format('Y-m-d\TH:i') }}"
-                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                     @error('scheduled_at')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -48,7 +48,7 @@
 
             <p class="text-sm text-slate-500" id="typeHint">Immediate meetings are public: share the join link. A unique room name will be generated.</p>
             <div class="flex gap-3">
-                <button type="submit" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                <button type="submit" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                     Create Meeting
                 </button>
                 <a href="{{ route('meetings.index') }}" class="rounded-lg border border-slate-300 px-4 py-2 font-medium text-slate-700 transition hover:bg-slate-50">

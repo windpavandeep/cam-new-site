@@ -17,7 +17,7 @@
 
     <div class="mb-6 flex items-center justify-between">
         <p class="text-slate-600">Create, edit, and delete user accounts.</p>
-        <a href="{{ route('users.create') }}" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+        <a href="{{ route('users.create') }}" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
             Create User
         </a>
     </div>

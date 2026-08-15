@@ -27,12 +27,12 @@
             <div>
                 <label for="image" class="mb-1 block text-sm font-medium text-slate-700">Image (JPG or PNG)</label>
                 <input type="file" name="image" id="image" accept=".jpg,.jpeg,.png,image/jpeg,image/png" required
-                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 file:mr-3 file:rounded file:border-0 file:bg-amber-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-amber-700 hover:file:bg-amber-100 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 file:mr-3 file:rounded file:border-0 file:bg-amber-50 file:px-4 file:py-2 file:text-sm file:font-medium file:text-amber-700 hover:file:bg-amber-100 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                 @error('image')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <button type="submit" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+            <button type="submit" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                 Upload slide
             </button>
         </form>

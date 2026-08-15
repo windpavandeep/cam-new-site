@@ -23,7 +23,7 @@
 
     <div class="mb-6 flex justify-between items-center">
         <p class="text-slate-600 text-sm">Drag to reorder videos within this category. This order determines how they appear on the site.</p>
-        <a href="{{ route('dashboard.categories.index') }}" class="text-sm font-medium text-amber-600 hover:text-amber-700">&larr; Back to Categories</a>
+        <a href="{{ route('dashboard.categories.index') }}" class="text-sm font-medium text-sky-700 hover:text-amber-700">&larr; Back to Categories</a>
     </div>
 
     <div class="rounded-xl border border-slate-200 bg-white shadow-sm overflow-hidden">
@@ -77,7 +77,7 @@
             </ul>
             <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex justify-between items-center">
                 <span class="text-sm text-slate-500 italic">Changes are not saved until you click Save Order.</span>
-                <button type="submit" form="reorder-form" class="rounded-lg bg-amber-500 px-6 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 shadow-sm">
+                <button type="submit" form="reorder-form" class="rounded-lg bg-sky-600 px-6 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 shadow-sm">
                     Save Order
                 </button>
             </div>

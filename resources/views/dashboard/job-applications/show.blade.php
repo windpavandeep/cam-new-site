@@ -71,7 +71,7 @@
         <div>
             <h2 class="text-sm font-medium text-slate-500 mb-2">CV</h2>
             <p class="text-sm text-slate-700 mb-3">{{ $application->cv_original_name ?? basename($application->cv_path) }}</p>
-            <a href="{{ route('dashboard.job-applications.cv', $application) }}" class="inline-flex rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+            <a href="{{ route('dashboard.job-applications.cv', $application) }}" class="inline-flex rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                 Download CV
             </a>
         </div>

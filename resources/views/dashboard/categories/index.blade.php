@@ -25,12 +25,12 @@
                 <label for="name" class="mb-1 block text-sm font-medium text-slate-700">Name</label>
                 <input type="text" name="name" id="name" value="{{ old('name') }}" required maxlength="100"
                     placeholder="e.g. Milling"
-                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                 @error('name')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <button type="submit" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+            <button type="submit" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                 Add category
             </button>
         </form>
@@ -81,7 +81,7 @@
                 @endforeach
             </ul>
             <div class="px-6 py-4 border-t border-slate-200 bg-slate-50">
-                <button type="submit" form="reorder-form" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                <button type="submit" form="reorder-form" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                     Save order
                 </button>
             </div>

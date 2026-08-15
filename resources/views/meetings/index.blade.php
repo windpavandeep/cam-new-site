@@ -18,7 +18,7 @@
     <div class="mb-6 flex items-center justify-between">
         <p class="text-slate-600">@if(auth()->user()->isAdmin())Create a meeting room and share the link so others can join.@else Join a meeting from the list below.@endif</p>
         @if(auth()->user()->isAdmin())
-        <a href="{{ route('meetings.create') }}" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+        <a href="{{ route('meetings.create') }}" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
             Create Meeting
         </a>
         @endif
@@ -30,7 +30,7 @@
             <p class="text-lg font-medium">No meetings yet.</p>
             <p class="mt-1 text-sm">@if(auth()->user()->isAdmin())Create a meeting to get started.@else No meetings are available to join.@endif</p>
             @if(auth()->user()->isAdmin())
-            <a href="{{ route('meetings.create') }}" class="mt-4 inline-block rounded-lg bg-amber-500 px-4 py-2 font-medium text-white hover:bg-amber-600">Create Meeting</a>
+            <a href="{{ route('meetings.create') }}" class="mt-4 inline-block rounded-lg bg-sky-600 px-4 py-2 font-medium text-white hover:bg-sky-700">Create Meeting</a>
             @endif
         </div>
         @else
@@ -87,7 +87,7 @@
                         @if ($scheduledNotStartedAdmin)
                             <span class="rounded-lg border border-slate-300 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-500 scheduled-time-local" data-scheduled-utc="{{ $meeting->getScheduledAtUtcIso() }}" data-format="short" data-prefix="Starts "></span>
                         @else
-                            <a href="{{ route('meetings.show', $meeting) }}" class="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600">
+                            <a href="{{ route('meetings.show', $meeting) }}" class="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700">
                                 Start meeting
                             </a>
                         @endif
@@ -117,7 +117,7 @@
                         @elseif ($scheduledNotStarted)
                             <span class="rounded-lg border border-slate-300 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-500 scheduled-time-local" data-scheduled-utc="{{ $meeting->getScheduledAtUtcIso() }}" data-format="short" data-prefix="Starts "></span>
                         @else
-                            <a href="{{ route('meetings.show', $meeting) }}" class="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600">
+                            <a href="{{ route('meetings.show', $meeting) }}" class="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700">
                                 Join meeting
                             </a>
                         @endif
@@ -143,13 +143,13 @@
             <p id="inviteModalMeetingTitle" class="mt-1 text-sm text-slate-500"></p>
             <div class="mt-4">
                 <label for="inviteUserSelect" class="block text-sm font-medium text-slate-700">Select user</label>
-                <select id="inviteUserSelect" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                <select id="inviteUserSelect" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                     <option value="">Loading…</option>
                 </select>
             </div>
             <p id="inviteUserFeedback" class="mt-2 hidden text-sm"></p>
             <div class="mt-4 flex gap-2">
-                <button type="button" id="inviteModalInviteBtn" class="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600">
+                <button type="button" id="inviteModalInviteBtn" class="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700">
                     Invite
                 </button>
                 <button type="button" id="inviteModalClose" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50">

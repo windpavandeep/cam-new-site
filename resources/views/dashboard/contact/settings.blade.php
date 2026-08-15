@@ -21,7 +21,7 @@
             <div>
                 <label for="email" class="mb-1 block text-sm font-medium text-slate-700">Public / inbox email</label>
                 <input type="email" name="email" id="email" value="{{ old('email', $settings->email) }}" maxlength="255"
-                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     placeholder="hello@example.com"
                     autocomplete="email">
                 @error('email')
@@ -31,7 +31,7 @@
             <div>
                 <label for="phone" class="mb-1 block text-sm font-medium text-slate-700">Phone</label>
                 <input type="text" name="phone" id="phone" value="{{ old('phone', $settings->phone) }}" maxlength="50"
-                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500"
                     placeholder="+1 …">
                 @error('phone')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -40,7 +40,7 @@
             <div>
                 <label for="address" class="mb-1 block text-sm font-medium text-slate-700">Address</label>
                 <textarea name="address" id="address" rows="4" maxlength="2000"
-                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">{{ old('address', $settings->address) }}</textarea>
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">{{ old('address', $settings->address) }}</textarea>
                 @error('address')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
@@ -48,12 +48,12 @@
             <div>
                 <label for="hours" class="mb-1 block text-sm font-medium text-slate-700">Working hours</label>
                 <textarea name="hours" id="hours" rows="3" maxlength="1000"
-                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">{{ old('hours', $settings->hours) }}</textarea>
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">{{ old('hours', $settings->hours) }}</textarea>
                 @error('hours')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
-            <button type="submit" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+            <button type="submit" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                 Save
             </button>
         </form>

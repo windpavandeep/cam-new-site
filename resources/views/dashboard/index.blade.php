@@ -21,7 +21,7 @@
                         <label for="youtube_id" class="mb-1 block text-sm font-medium text-slate-700">YouTube Video ID</label>
                         <input type="text" name="youtube_id" id="youtube_id" value="{{ old('youtube_id') }}" required
                             placeholder="e.g. dQw4w9WgXcQ"
-                            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                         @error('youtube_id')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -32,7 +32,7 @@
                         <p class="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">Add at least one category from <a href="{{ route('dashboard.categories.index') }}" class="font-medium underline">Categories</a> first.</p>
                         @else
                         <select name="category_id" id="category_id" required
-                            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                            class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                             @foreach ($categories as $cat)
                             <option value="{{ $cat->id }}" {{ (string) old('category_id') === (string) $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                             @endforeach
@@ -47,7 +47,7 @@
                     <label for="title" class="mb-1 block text-sm font-medium text-slate-700">Title</label>
                     <input type="text" name="title" id="title" value="{{ old('title') }}" required
                         placeholder="Video title"
-                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                     @error('title')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -55,7 +55,7 @@
                 <div>
                     <label for="media_id" class="mb-1 block text-sm font-medium text-slate-700">Model from Media Library (optional)</label>
                     <select name="media_id" id="media_id"
-                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                        class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                         <option value="">— None —</option>
                         @foreach ($media as $m)
                         <option value="{{ $m->id }}" {{ (string) old('media_id') === (string) $m->id ? 'selected' : '' }}>{{ $m->original_name }}{{ $m->tooltip ? ' · ' . \Illuminate\Support\Str::limit($m->tooltip, 40) : '' }}</option>
@@ -66,7 +66,7 @@
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
-                <button type="submit" class="rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                <button type="submit" class="rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                     Add Video
                 </button>
             </form>
@@ -100,7 +100,7 @@
                         </div>
                         <div class="flex flex-shrink-0 flex-wrap items-center gap-2">
                             <button type="button"
-                                class="js-copy-video-link rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-1"
+                                class="js-copy-video-link rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1"
                                 data-video-url="https://www.youtube.com/watch?v={{ $video->youtube_id }}"
                                 title="Copy YouTube link">
                                 <span class="copy-link-label">Copy link</span>

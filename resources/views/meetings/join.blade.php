@@ -83,10 +83,10 @@
                     </button>
                 @endfor
             </div>
-            <textarea id="feedbackText" class="mt-4 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500" rows="3" placeholder="Optional: share your feedback…" maxlength="2000"></textarea>
+            <textarea id="feedbackText" class="mt-4 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500" rows="3" placeholder="Optional: share your feedback…" maxlength="2000"></textarea>
             <p class="mt-1 text-right text-xs text-slate-400"><span id="feedbackCharCount">0</span>/2000</p>
             <div class="mt-4 flex flex-wrap justify-center gap-3">
-                <button type="button" id="btnSubmitFeedback" class="rounded-lg bg-amber-500 px-5 py-2.5 font-medium text-white transition hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2">
+                <button type="button" id="btnSubmitFeedback" class="rounded-lg bg-sky-600 px-5 py-2.5 font-medium text-white transition hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">
                     Submit feedback
                 </button>
                 <button type="button" id="btnSkipFeedback" class="rounded-lg border border-slate-300 px-5 py-2.5 font-medium text-slate-600 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-300 focus:ring-offset-2">
@@ -96,7 +96,7 @@
         </div>
         <div id="feedbackThankYou" class="mt-6 hidden text-center">
             <p class="text-lg font-medium text-slate-700">Thank you for your feedback!</p>
-            <a href="{{ route('meetings.index') }}" class="mt-3 inline-block rounded-lg bg-amber-500 px-4 py-2 font-medium text-white transition hover:bg-amber-600">Back to meetings</a>
+            <a href="{{ route('meetings.index') }}" class="mt-3 inline-block rounded-lg bg-sky-600 px-4 py-2 font-medium text-white transition hover:bg-sky-700">Back to meetings</a>
         </div>
         <div id="feedbackSkipped" class="mt-6 hidden text-center">
             <p class="text-lg font-medium text-slate-700">Thanks!</p>
@@ -123,10 +123,10 @@
                 <p class="text-sm font-medium text-slate-700">Invite user to this meeting</p>
                 <p class="mt-1 text-sm text-slate-500">Invited users will see this meeting on their Meetings page and can accept or reject.</p>
                 <div class="mt-3 flex gap-2">
-                    <select id="inviteUserSelect" class="flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
+                    <select id="inviteUserSelect" class="flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                         <option value="">Select a user…</option>
                     </select>
-                    <button type="button" id="btnInviteUser" class="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600">Invite</button>
+                    <button type="button" id="btnInviteUser" class="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700">Invite</button>
                 </div>
                 <p id="inviteUserFeedback" class="mt-2 hidden text-sm"></p>
             </div>
@@ -135,7 +135,7 @@
             <p class="mt-1 text-sm text-slate-500">Share this link so others can join the meeting. They must be logged in.</p>
             <div id="inviteLinkSection" class="mt-4 flex gap-2">
                 <input type="text" id="inviteLinkInput" readonly class="flex-1 rounded-lg border border-slate-300 bg-slate-50 px-3 py-2 text-sm text-slate-700">
-                <button type="button" id="btnCopyLink" class="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600">
+                <button type="button" id="btnCopyLink" class="rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-sky-700">
                     Copy link
                 </button>
             </div>
@@ -304,7 +304,7 @@
             var stars = document.querySelectorAll('#ratingStars .rating-star');
             stars.forEach(function(btn, i) {
                 var value = parseInt(btn.getAttribute('data-rating'), 10);
-                btn.classList.toggle('text-amber-500', value <= selectedRating);
+                btn.classList.toggle('text-sky-600', value <= selectedRating);
                 btn.classList.toggle('text-slate-300', value > selectedRating);
             });
         }
