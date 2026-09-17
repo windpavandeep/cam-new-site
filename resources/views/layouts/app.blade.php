@@ -194,11 +194,7 @@
         @yield('content')
     </main>
 
-    <footer class="mt-auto border-t border-cam-line bg-white/90 py-8 backdrop-blur-sm">
-        <div class="container mx-auto px-4 text-center text-sm text-slate-500">
-            &copy; {{ date('Y') }} <span class="font-semibold text-cam-ink">CAM Solutions</span>. Learn CNC programming with Mastercam.
-        </div>
-    </footer>
+    @include('partials.footer')
 
     @include('partials.model-download-script')
     <script>

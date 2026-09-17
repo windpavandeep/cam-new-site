@@ -19,7 +19,10 @@ class StudentCertificate extends Model
     protected $fillable = [
         'ref_no',
         'student_name',
+        'father_name',
         'course_name',
+        'start_date',
+        'end_date',
         'path',
         'original_name',
         'mime_type',
@@ -32,6 +35,8 @@ class StudentCertificate extends Model
         return [
             'size' => 'integer',
             'issued_at' => 'date',
+            'start_date' => 'date',
+            'end_date' => 'date',
         ];
     }
 

@@ -55,6 +55,7 @@ Route::prefix($prefix)->group(function () {
         Route::delete('/dashboard/videos/{video}', [DashboardController::class, 'destroy'])->name('dashboard.videos.destroy');
         Route::get('/dashboard/certificates', [StudentCertificateController::class, 'index'])->name('dashboard.certificates.index');
         Route::post('/dashboard/certificates', [StudentCertificateController::class, 'store'])->name('dashboard.certificates.store');
+        Route::put('/dashboard/certificates/{certificate}', [StudentCertificateController::class, 'update'])->name('dashboard.certificates.update');
         Route::delete('/dashboard/certificates/{certificate}', [StudentCertificateController::class, 'destroy'])->name('dashboard.certificates.destroy');
         Route::get('/dashboard/certificates/{certificate}/download', [StudentCertificateController::class, 'download'])->name('dashboard.certificates.download');
         Route::get('/dashboard/media', [MediaController::class, 'index'])->name('dashboard.media.index');

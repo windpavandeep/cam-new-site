@@ -39,8 +39,14 @@
                 @if ($certificate->student_name)
                 <div><dt class="text-slate-500">Student</dt><dd class="font-medium text-slate-800">{{ $certificate->student_name }}</dd></div>
                 @endif
+                @if ($certificate->father_name)
+                <div><dt class="text-slate-500">Father name</dt><dd class="font-medium text-slate-800">{{ $certificate->father_name }}</dd></div>
+                @endif
                 @if ($certificate->course_name)
                 <div><dt class="text-slate-500">Course</dt><dd class="font-medium text-slate-800">{{ $certificate->course_name }}</dd></div>
+                @endif
+                @if ($certificate->start_date || $certificate->end_date)
+                <div><dt class="text-slate-500">Course duration</dt><dd>{{ $certificate->start_date?->format('d M Y') ?? '—' }} – {{ $certificate->end_date?->format('d M Y') ?? '—' }}</dd></div>
                 @endif
                 @if ($certificate->issued_at)
                 <div><dt class="text-slate-500">Issued</dt><dd>{{ $certificate->issued_at->format('d M Y') }}</dd></div>

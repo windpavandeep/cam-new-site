@@ -111,13 +111,49 @@
 
 <div class="container relative z-10 mx-auto max-w-[1500px] px-4 py-8 md:py-12">
     {{-- 2. Industry tools strip --}}
-    <section class="reveal mb-10 rounded-2xl border border-sky-200 bg-white p-5 shadow-sm md:p-7">
-        <p class="text-center text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">Industry-leading tools</p>
-        <div class="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-            @foreach (['Mastercam', 'NX', 'SolidWorks', 'Edgecam', 'Artcam', 'SolidCAM'] as $tool)
-                <div class="rounded-xl border border-slate-200 bg-white px-3 py-4 text-center text-sm font-semibold text-slate-800 shadow-sm">
-                    <span class="mx-auto mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg border border-sky-200 bg-sky-50 text-sky-600">
-                        @switch($tool)
+    <section class="tools-showcase reveal relative mb-10 overflow-hidden rounded-3xl border border-sky-200/80 shadow-[0_20px_50px_rgba(26,95,138,0.08)]">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-teal-50"></div>
+        <div class="pointer-events-none absolute inset-0 tools-bg" aria-hidden="true">
+            <span class="tools-blob tools-blob-a"></span>
+            <span class="tools-blob tools-blob-b"></span>
+            <span class="tools-block tools-block-a"></span>
+            <span class="tools-block tools-block-b"></span>
+            <span class="tools-block tools-block-c"></span>
+            <div class="tools-gear tools-gear-a">
+                <svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd">
+                    <path d="M84.38 43.44 L95.64 44.23 L95.93 47.52 L85.00 50.31 L84.38 56.56 L83.82 59.01 L93.62 64.61 L92.46 67.70 L81.40 65.47 L78.13 70.83 L76.56 72.79 L82.96 82.09 L80.57 84.37 L71.58 77.56 L66.31 80.97 L64.04 82.06 L65.78 93.21 L62.64 94.23 L57.48 84.19 L51.26 84.98 L48.74 84.98 L45.47 95.78 L42.19 95.33 L41.91 84.05 L35.96 82.06 L33.69 80.97 L26.05 89.28 L23.30 87.46 L27.93 77.17 L23.44 72.79 L21.87 70.83 L11.38 75.00 L9.69 72.16 L18.33 64.90 L16.18 59.01 L15.62 56.56 L4.36 55.77 L4.07 52.48 L15.00 49.69 L15.62 43.44 L16.18 40.99 L6.38 35.39 L7.54 32.30 L18.60 34.53 L21.87 29.17 L23.44 27.21 L17.04 17.91 L19.43 15.63 L28.42 22.44 L33.69 19.03 L35.96 17.94 L34.22 6.79 L37.36 5.77 L42.52 15.81 L48.74 15.02 L51.26 15.02 L54.53 4.22 L57.81 4.67 L58.09 15.95 L64.04 17.94 L66.31 19.03 L73.95 10.72 L76.70 12.54 L72.07 22.83 L76.56 27.21 L78.13 29.17 L88.62 25.00 L90.31 27.84 L81.67 35.10 L83.82 40.99 Z M63 50 A13 13 0 1 0 37 50 A13 13 0 1 0 63 50 Z"/>
+                </svg>
+            </div>
+            <div class="tools-gear tools-gear-b">
+                <svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd">
+                    <path d="M83.18 42.58 L95.51 43.28 L95.91 47.11 L84.00 50.36 L83.18 57.42 L82.44 60.17 L92.77 66.93 L91.20 70.45 L79.27 67.31 L75.03 73.01 L73.01 75.03 L78.57 86.05 L75.46 88.31 L66.69 79.62 L60.17 82.44 L57.42 83.18 L56.72 95.51 L52.89 95.91 L49.64 84.00 L42.58 83.18 L39.83 82.44 L33.07 92.77 L29.55 91.20 L32.69 79.27 L26.99 75.03 L24.97 73.01 L13.95 78.57 L11.69 75.46 L20.38 66.69 L17.56 60.17 L16.82 57.42 L4.49 56.72 L4.09 52.89 L16.00 49.64 L16.82 42.58 L17.56 39.83 L7.23 33.07 L8.80 29.55 L20.73 32.69 L24.97 26.99 L26.99 24.97 L21.43 13.95 L24.54 11.69 L33.31 20.38 L39.83 17.56 L42.58 16.82 L43.28 4.49 L47.11 4.09 L50.36 16.00 L57.42 16.82 L60.17 17.56 L66.93 7.23 L70.45 8.80 L67.31 20.73 L73.01 24.97 L75.03 26.99 L86.05 21.43 L88.31 24.54 L79.62 33.31 L82.44 39.83 Z M62 50 A12 12 0 1 0 38 50 A12 12 0 1 0 62 50 Z"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="relative z-10 px-5 py-8 md:px-8 md:py-10">
+            <div class="mx-auto mb-8 max-w-2xl text-center">
+                <p class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cam-steel shadow-sm">
+                    <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-teal-500"></span>
+                    Industry-leading tools
+                </p>
+                <h2 class="font-display mt-3 text-2xl font-bold text-cam-ink md:text-3xl">Software that powers modern CNC shops</h2>
+                <p class="mt-2 text-sm text-slate-600 md:text-base">Train on the same CAM platforms used in production — from Mastercam workflows to multi-axis toolpath confidence.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+                @foreach ([
+                    ['name' => 'Mastercam', 'tone' => 'steel'],
+                    ['name' => 'NX', 'tone' => 'sky'],
+                    ['name' => 'SolidWorks', 'tone' => 'teal'],
+                    ['name' => 'Edgecam', 'tone' => 'steel'],
+                    ['name' => 'Artcam', 'tone' => 'sky'],
+                    ['name' => 'SolidCAM', 'tone' => 'teal'],
+                ] as $index => $tool)
+                <article class="tool-card tool-tone-{{ $tool['tone'] }}" style="--d: {{ $index * 70 }}ms">
+                    <span class="tool-card-glow" aria-hidden="true"></span>
+                    <span class="tool-icon">
+                        @switch($tool['name'])
                             @case('Mastercam')
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 12h16M12 4v16M6.5 6.5l11 11M17.5 6.5l-11 11" />
@@ -149,115 +185,143 @@
                                 </svg>
                         @endswitch
                     </span>
-                    <span class="block">{{ $tool }}</span>
-                </div>
-            @endforeach
+                    <span class="tool-name">{{ $tool['name'] }}</span>
+                    <span class="tool-meta">CAD / CAM</span>
+                </article>
+                @endforeach
+            </div>
         </div>
     </section>
 
     {{-- 3. Course library --}}
-    <section id="course-library">
-        <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">Our courses</p>
-                <h2 class="mt-2 text-2xl font-bold text-slate-800 md:text-3xl">Popular Courses</h2>
+    <section id="course-library" class="courses-showcase reveal relative mb-4 overflow-hidden rounded-3xl border border-sky-200/80 shadow-[0_20px_50px_rgba(26,95,138,0.08)]">
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-br from-sky-50 via-white to-teal-50"></div>
+        <div class="pointer-events-none absolute inset-0 courses-bg" aria-hidden="true">
+            <span class="courses-blob courses-blob-a"></span>
+            <span class="courses-blob courses-blob-b"></span>
+            <span class="courses-block courses-block-a"></span>
+            <span class="courses-block courses-block-b"></span>
+            <div class="courses-gear courses-gear-a">
+                <svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd">
+                    <path d="M84.38 43.44 L95.64 44.23 L95.93 47.52 L85.00 50.31 L84.38 56.56 L83.82 59.01 L93.62 64.61 L92.46 67.70 L81.40 65.47 L78.13 70.83 L76.56 72.79 L82.96 82.09 L80.57 84.37 L71.58 77.56 L66.31 80.97 L64.04 82.06 L65.78 93.21 L62.64 94.23 L57.48 84.19 L51.26 84.98 L48.74 84.98 L45.47 95.78 L42.19 95.33 L41.91 84.05 L35.96 82.06 L33.69 80.97 L26.05 89.28 L23.30 87.46 L27.93 77.17 L23.44 72.79 L21.87 70.83 L11.38 75.00 L9.69 72.16 L18.33 64.90 L16.18 59.01 L15.62 56.56 L4.36 55.77 L4.07 52.48 L15.00 49.69 L15.62 43.44 L16.18 40.99 L6.38 35.39 L7.54 32.30 L18.60 34.53 L21.87 29.17 L23.44 27.21 L17.04 17.91 L19.43 15.63 L28.42 22.44 L33.69 19.03 L35.96 17.94 L34.22 6.79 L37.36 5.77 L42.52 15.81 L48.74 15.02 L51.26 15.02 L54.53 4.22 L57.81 4.67 L58.09 15.95 L64.04 17.94 L66.31 19.03 L73.95 10.72 L76.70 12.54 L72.07 22.83 L76.56 27.21 L78.13 29.17 L88.62 25.00 L90.31 27.84 L81.67 35.10 L83.82 40.99 Z M63 50 A13 13 0 1 0 37 50 A13 13 0 1 0 63 50 Z"/>
+                </svg>
             </div>
-            <a href="{{ route('videos') }}" class="text-sm font-semibold text-sky-600 transition hover:text-sky-700">View all courses &rarr;</a>
-        </div>
-        @if (!empty($categories_with_videos))
-        <div class="mb-6 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white/90 p-2 md:mb-7" role="tablist">
-            @foreach ($categories_with_videos as $index => $cat)
-            <button type="button" role="tab" id="tab-{{ $cat['slug'] }}" aria-selected="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="panel-{{ $cat['slug'] }}"
-                class="tab-btn rounded-xl border px-4 py-2.5 text-sm font-medium transition {{ $index === 0 ? 'border-sky-500 bg-sky-100 text-sky-800 shadow-[0_0_0_1px_rgba(34,211,238,0.18)]' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-500/70 hover:bg-slate-100 hover:text-slate-700' }}">
-                {{ $cat['name'] }}
-            </button>
-            @endforeach
+            <div class="courses-gear courses-gear-b">
+                <svg viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd">
+                    <path d="M83.18 42.58 L95.51 43.28 L95.91 47.11 L84.00 50.36 L83.18 57.42 L82.44 60.17 L92.77 66.93 L91.20 70.45 L79.27 67.31 L75.03 73.01 L73.01 75.03 L78.57 86.05 L75.46 88.31 L66.69 79.62 L60.17 82.44 L57.42 83.18 L56.72 95.51 L52.89 95.91 L49.64 84.00 L42.58 83.18 L39.83 82.44 L33.07 92.77 L29.55 91.20 L32.69 79.27 L26.99 75.03 L24.97 73.01 L13.95 78.57 L11.69 75.46 L20.38 66.69 L17.56 60.17 L16.82 57.42 L4.49 56.72 L4.09 52.89 L16.00 49.64 L16.82 42.58 L17.56 39.83 L7.23 33.07 L8.80 29.55 L20.73 32.69 L24.97 26.99 L26.99 24.97 L21.43 13.95 L24.54 11.69 L33.31 20.38 L39.83 17.56 L42.58 16.82 L43.28 4.49 L47.11 4.09 L50.36 16.00 L57.42 16.82 L60.17 17.56 L66.93 7.23 L70.45 8.80 L67.31 20.73 L73.01 24.97 L75.03 26.99 L86.05 21.43 L88.31 24.54 L79.62 33.31 L82.44 39.83 Z M62 50 A12 12 0 1 0 38 50 A12 12 0 1 0 62 50 Z"/>
+                </svg>
+            </div>
         </div>
 
-        @foreach ($categories_with_videos as $index => $cat)
-        <div id="panel-{{ $cat['slug'] }}" role="tabpanel" class="tab-panel {{ $index === 0 ? '' : 'hidden' }}">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-                @forelse ($cat['videos'] as $video)
-                <article class="group w-full rounded-xl border border-slate-200 bg-white shadow-md shadow-slate-200/80 overflow-hidden hover:-translate-y-1 hover:border-sky-300 transition duration-200">
-                    <button type="button" class="video-modal-trigger relative block w-full aspect-video bg-slate-200 cursor-pointer text-left border-0 p-0"
-                        data-youtube-id="{{ $video['id'] }}" aria-label="Play {{ $video['title'] }}">
-                        <img src="https://img.youtube.com/vi/{{ $video['id'] }}/mqdefault.jpg" alt="{{ $video['title'] }}"
-                            class="w-full h-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
-                        @php
-                            $badge_palette = ['bg-emerald-500/90 text-emerald-50', 'bg-sky-600/90 text-amber-50', 'bg-violet-500/90 text-violet-50', 'bg-rose-500/90 text-rose-50'];
-                            $badge_labels = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
-                            $badge_index = ($loop->iteration - 1) % 4;
-                        @endphp
-                        <span class="pointer-events-none absolute left-2 top-2 inline-flex items-center rounded-md px-2 py-1 text-[10px] font-semibold uppercase tracking-wide {{ $badge_palette[$badge_index] }}">{{ $badge_labels[$badge_index] }}</span>
-                    </button>
-                    <div class="p-3">
-                        <h3 class="mb-2 min-h-[3rem] line-clamp-2 text-base font-semibold leading-snug text-slate-800">{{ $video['title'] }}</h3>
-                        <div class="mb-3 flex items-center gap-4 text-xs text-slate-600">
-                            <span class="inline-flex items-center gap-1.5">
-                                <svg class="h-3.5 w-3.5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.567-3 3.5S10.343 15 12 15s3-1.567 3-3.5S13.657 8 12 8zm0 0V5m0 10v4m7-7h-4M5 12H1" />
-                                </svg>
-                                {{ 10 + ($loop->iteration % 12) }} Lessons
-                            </span>
-                            <span class="inline-flex items-center gap-1.5">
-                                <svg class="h-3.5 w-3.5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                {{ number_format(3 + (($loop->iteration % 8) * 0.5), 1) }} Hours
-                            </span>
-                        </div>
-                        <div class="flex flex-wrap items-center justify-center gap-2">
-                            <button type="button"
-                                class="js-copy-video-link inline-flex items-center gap-1 rounded-lg border border-slate-300 bg-slate-100 px-2.5 py-1.5 text-xs font-medium text-slate-700 transition hover:border-sky-300 hover:text-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-1 focus:ring-offset-white"
-                                data-video-url="https://www.youtube.com/watch?v={{ $video['id'] }}"
-                                title="Copy YouTube link">
-                                <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                </svg>
-                                <span class="copy-link-label">Copy link</span>
-                            </button>
-                            @if(!empty($video['download_path']))
-                                @auth
-                                <a href="{{ route('download.model', ['path' => $video['download_path']]) }}"
-                                    class="js-model-download inline-flex items-center gap-1 rounded-lg border border-sky-200 bg-sky-600 px-2.5 py-1.5 text-xs font-semibold text-white transition hover:bg-sky-500"
-                                    data-download-path="{{ $video['download_path'] }}"
-                                    @if(!empty($video['tooltip'])) title="{{ $video['tooltip'] }}" @endif>
-                                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                                    </svg>
-                                    <span>Download</span>
-                                    <span class="js-download-count rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold tabular-nums" title="Total downloads">{{ number_format($video['downloads_count'] ?? 0) }}</span>
-                                </a>
-                                @else
-                                <a href="{{ route('login') }}"
-                                    class="inline-flex items-center gap-1 rounded-lg border border-sky-300 bg-sky-50 px-2.5 py-1.5 text-xs font-medium text-sky-700 transition hover:bg-sky-100">
-                                    Log in to download
-                                </a>
-                                @endauth
-                            @endif
-                        </div>
-                        <button type="button"
-                            class="video-modal-trigger mt-3 inline-flex w-full items-center justify-center rounded-lg bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-700"
-                            data-youtube-id="{{ $video['id'] }}" aria-label="Start course {{ $video['title'] }}">
-                            Play Video
-                        </button>
-                    </div>
-                </article>
-                @empty
-                <div class="col-span-full rounded-xl border border-slate-200 bg-white p-8 text-center text-slate-500">
-                    <p class="text-lg font-medium">{{ $cat['name'] }} content coming soon.</p>
-                    <p class="mt-2">Add videos from the dashboard.</p>
+        <div class="relative z-10 px-5 py-8 md:px-8 md:py-10">
+            <div class="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <p class="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-cam-steel shadow-sm">
+                        <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-sky-500"></span>
+                        Our courses
+                    </p>
+                    <h2 class="font-display mt-3 text-2xl font-bold text-cam-ink md:text-3xl">Popular Courses</h2>
+                    <p class="mt-2 max-w-xl text-sm text-slate-600 md:text-base">Browse practical CNC lessons by category and start learning with playable video modules.</p>
                 </div>
-                @endforelse
+                <a href="{{ route('videos') }}" class="inline-flex items-center gap-2 self-start rounded-xl border border-sky-200 bg-white/90 px-4 py-2.5 text-sm font-semibold text-cam-steel shadow-sm transition hover:-translate-y-0.5 hover:border-teal-300 hover:text-teal-700 sm:self-auto">
+                    View all courses
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
             </div>
+
+            @if (!empty($categories_with_videos))
+            <div class="course-tabs mb-7 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-sky-200/80 bg-white/75 p-2 shadow-inner shadow-sky-100/50 backdrop-blur-sm" role="tablist">
+                @foreach ($categories_with_videos as $index => $cat)
+                <button type="button" role="tab" id="tab-{{ $cat['slug'] }}" aria-selected="{{ $index === 0 ? 'true' : 'false' }}" aria-controls="panel-{{ $cat['slug'] }}"
+                    class="tab-btn course-tab {{ $index === 0 ? 'is-active' : '' }}">
+                    {{ $cat['name'] }}
+                </button>
+                @endforeach
+            </div>
+
+            @foreach ($categories_with_videos as $index => $cat)
+            <div id="panel-{{ $cat['slug'] }}" role="tabpanel" class="tab-panel {{ $index === 0 ? '' : 'hidden' }}">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                    @forelse ($cat['videos'] as $video)
+                    @php
+                        $badge_labels = ['Beginner', 'Intermediate', 'Advanced', 'Expert'];
+                        $badge_tones = ['beginner', 'intermediate', 'advanced', 'expert'];
+                        $badge_index = ($loop->iteration - 1) % 4;
+                    @endphp
+                    <article class="course-card group" style="--d: {{ min(($loop->iteration - 1) * 60, 360) }}ms">
+                        <button type="button" class="video-modal-trigger course-card-media relative block w-full cursor-pointer border-0 bg-slate-200 p-0 text-left"
+                            data-youtube-id="{{ $video['id'] }}" aria-label="Play {{ $video['title'] }}">
+                            <img src="https://img.youtube.com/vi/{{ $video['id'] }}/mqdefault.jpg" alt="{{ $video['title'] }}"
+                                class="h-full w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                            <span class="course-play-overlay" aria-hidden="true">
+                                <span class="course-play-btn">
+                                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </span>
+                            </span>
+                            <span class="course-badge course-badge-{{ $badge_tones[$badge_index] }}">{{ $badge_labels[$badge_index] }}</span>
+                        </button>
+                        <div class="course-card-body">
+                            <h3 class="course-card-title">{{ $video['title'] }}</h3>
+                            <div class="course-card-meta">
+                                <span>
+                                    <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.567-3 3.5S10.343 15 12 15s3-1.567 3-3.5S13.657 8 12 8zm0 0V5m0 10v4m7-7h-4M5 12H1" /></svg>
+                                    {{ 10 + ($loop->iteration % 12) }} Lessons
+                                </span>
+                                <span>
+                                    <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    {{ number_format(3 + (($loop->iteration % 8) * 0.5), 1) }} Hours
+                                </span>
+                            </div>
+                            <div class="course-card-actions">
+                                <button type="button"
+                                    class="js-copy-video-link course-btn-ghost"
+                                    data-video-url="https://www.youtube.com/watch?v={{ $video['id'] }}"
+                                    title="Copy YouTube link">
+                                    <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="copy-link-label">Copy link</span>
+                                </button>
+                                @if(!empty($video['download_path']))
+                                    @auth
+                                    <a href="{{ route('download.model', ['path' => $video['download_path']]) }}"
+                                        class="js-model-download course-btn-download"
+                                        data-download-path="{{ $video['download_path'] }}"
+                                        @if(!empty($video['tooltip'])) title="{{ $video['tooltip'] }}" @endif>
+                                        <svg class="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                        </svg>
+                                        <span>Download</span>
+                                        <span class="js-download-count rounded-md bg-white/20 px-2 py-0.5 text-xs font-semibold tabular-nums" title="Total downloads">{{ number_format($video['downloads_count'] ?? 0) }}</span>
+                                    </a>
+                                    @else
+                                    <a href="{{ route('login') }}" class="course-btn-ghost">Log in to download</a>
+                                    @endauth
+                                @endif
+                            </div>
+                            <button type="button"
+                                class="video-modal-trigger course-btn-play"
+                                data-youtube-id="{{ $video['id'] }}" aria-label="Start course {{ $video['title'] }}">
+                                Play Video
+                            </button>
+                        </div>
+                    </article>
+                    @empty
+                    <div class="col-span-full rounded-2xl border border-dashed border-sky-200 bg-white/70 p-8 text-center text-slate-500">
+                        <p class="text-lg font-semibold text-cam-ink">{{ $cat['name'] }} content coming soon.</p>
+                        <p class="mt-2 text-sm">Add videos from the dashboard.</p>
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+            @endforeach
+            @else
+            <div class="rounded-2xl border border-dashed border-sky-200 bg-white/70 p-8 text-center text-slate-500">
+                <p class="text-lg font-semibold text-cam-ink">No categories yet.</p>
+                <p class="mt-2 text-sm">Add categories and videos from the dashboard.</p>
+            </div>
+            @endif
         </div>
-        @endforeach
-        @else
-        <div class="rounded-xl border border-slate-200 bg-white p-8 text-center text-slate-500">
-            <p class="text-lg font-medium">No categories yet.</p>
-            <p class="mt-2">Add categories and videos from the dashboard.</p>
-        </div>
-        @endif
     </section>
 
     {{-- 4. Precision drilling showcase (from hero image) --}}
@@ -549,6 +613,380 @@
         isolation: isolate;
     }
 
+    /* Industry tools showcase */
+    .tools-blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(28px);
+        opacity: 0.55;
+    }
+    .tools-blob-a {
+        width: 14rem; height: 14rem; top: -3rem; left: 8%;
+        background: rgba(56, 189, 248, 0.28);
+        animation: toolsPulse 10s ease-in-out infinite;
+    }
+    .tools-blob-b {
+        width: 12rem; height: 12rem; bottom: -2rem; right: 6%;
+        background: rgba(20, 184, 166, 0.24);
+        animation: toolsPulse 12s ease-in-out infinite reverse;
+    }
+    .tools-block {
+        position: absolute;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(43, 124, 181, 0.18);
+        background: linear-gradient(145deg, rgba(43, 124, 181, 0.12), rgba(15, 118, 110, 0.08));
+        opacity: 0.65;
+    }
+    .tools-block-a { width: 3.2rem; height: 3.2rem; top: 18%; right: 18%; animation: toolsFloatA 12s ease-in-out infinite; }
+    .tools-block-b { width: 2.4rem; height: 2.4rem; bottom: 22%; left: 10%; background: linear-gradient(145deg, rgba(20, 184, 166, 0.16), rgba(43, 124, 181, 0.1)); animation: toolsFloatB 14s ease-in-out infinite; }
+    .tools-block-c { width: 4rem; height: 1.6rem; top: 28%; left: 28%; animation: toolsFloatC 16s ease-in-out infinite; }
+
+    .tools-gear {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        transform-origin: center;
+        will-change: transform;
+    }
+    .tools-gear svg { width: 100%; height: 100%; display: block; }
+    .tools-gear-a {
+        width: 8rem; height: 8rem; top: -1.5rem; right: 4%;
+        color: rgba(26, 95, 138, 0.14);
+        animation: toolsSpin 48s linear infinite;
+    }
+    .tools-gear-b {
+        width: 6rem; height: 6rem; bottom: -1rem; left: 3%;
+        color: rgba(15, 118, 110, 0.16);
+        animation: toolsSpin 36s linear infinite reverse;
+    }
+
+    .tool-card {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.55rem;
+        border-radius: 1.1rem;
+        border: 1px solid rgba(213, 227, 239, 0.95);
+        background: rgba(255, 255, 255, 0.88);
+        padding: 1.15rem 0.75rem 1rem;
+        text-align: center;
+        box-shadow: 0 10px 24px rgba(15, 39, 68, 0.05);
+        transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease, border-color 260ms ease;
+        animation: toolCardIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-delay: var(--d, 0ms);
+    }
+    .tool-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(56, 189, 248, 0.55);
+        box-shadow: 0 18px 36px rgba(26, 95, 138, 0.14);
+    }
+    .tool-card-glow {
+        position: absolute;
+        inset: auto -20% -40% -20%;
+        height: 70%;
+        opacity: 0;
+        transition: opacity 260ms ease;
+        pointer-events: none;
+    }
+    .tool-card:hover .tool-card-glow { opacity: 1; }
+    .tool-tone-steel .tool-card-glow { background: radial-gradient(circle at center, rgba(26, 95, 138, 0.18), transparent 65%); }
+    .tool-tone-sky .tool-card-glow { background: radial-gradient(circle at center, rgba(56, 189, 248, 0.2), transparent 65%); }
+    .tool-tone-teal .tool-card-glow { background: radial-gradient(circle at center, rgba(20, 184, 166, 0.2), transparent 65%); }
+
+    .tool-icon {
+        position: relative;
+        display: inline-flex;
+        height: 2.75rem;
+        width: 2.75rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.9rem;
+        border: 1px solid transparent;
+        transition: transform 260ms ease;
+    }
+    .tool-card:hover .tool-icon { transform: scale(1.08) rotate(-4deg); }
+    .tool-tone-steel .tool-icon { color: #1a5f8a; background: linear-gradient(145deg, #e0f2fe, #f0f9ff); border-color: rgba(26, 95, 138, 0.18); }
+    .tool-tone-sky .tool-icon { color: #0284c7; background: linear-gradient(145deg, #e0f2fe, #ecfeff); border-color: rgba(14, 165, 233, 0.2); }
+    .tool-tone-teal .tool-icon { color: #0f766e; background: linear-gradient(145deg, #ccfbf1, #f0fdfa); border-color: rgba(15, 118, 110, 0.2); }
+
+    .tool-name {
+        position: relative;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #0f2744;
+    }
+    .tool-meta {
+        position: relative;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #64748b;
+    }
+
+    @keyframes toolsPulse {
+        0%, 100% { transform: scale(1); opacity: 0.4; }
+        50% { transform: scale(1.12); opacity: 0.65; }
+    }
+    @keyframes toolsFloatA {
+        0%, 100% { transform: translate(0, 0) rotate(16deg); }
+        50% { transform: translate(10px, -12px) rotate(24deg); }
+    }
+    @keyframes toolsFloatB {
+        0%, 100% { transform: translate(0, 0) rotate(-12deg); }
+        50% { transform: translate(-10px, 8px) rotate(-4deg); }
+    }
+    @keyframes toolsFloatC {
+        0%, 100% { transform: translate(0, 0) rotate(8deg); }
+        50% { transform: translate(8px, 10px) rotate(14deg); }
+    }
+    @keyframes toolsSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    @keyframes toolCardIn {
+        from { opacity: 0; transform: translateY(14px) scale(0.98); }
+        to { opacity: 1; transform: none; }
+    }
+
+    /* Popular Courses showcase */
+    .courses-blob {
+        position: absolute;
+        border-radius: 9999px;
+        filter: blur(28px);
+        opacity: 0.55;
+    }
+    .courses-blob-a {
+        width: 15rem; height: 15rem; top: -4rem; right: 12%;
+        background: rgba(56, 189, 248, 0.26);
+        animation: toolsPulse 11s ease-in-out infinite;
+    }
+    .courses-blob-b {
+        width: 11rem; height: 11rem; bottom: -3rem; left: 8%;
+        background: rgba(20, 184, 166, 0.22);
+        animation: toolsPulse 13s ease-in-out infinite reverse;
+    }
+    .courses-block {
+        position: absolute;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(43, 124, 181, 0.18);
+        background: linear-gradient(145deg, rgba(43, 124, 181, 0.12), rgba(15, 118, 110, 0.08));
+        opacity: 0.6;
+    }
+    .courses-block-a { width: 3rem; height: 3rem; top: 16%; left: 6%; animation: toolsFloatA 13s ease-in-out infinite; }
+    .courses-block-b { width: 2.2rem; height: 2.2rem; bottom: 18%; right: 10%; background: linear-gradient(145deg, rgba(20, 184, 166, 0.16), rgba(43, 124, 181, 0.1)); animation: toolsFloatB 15s ease-in-out infinite; }
+
+    .courses-gear {
+        position: absolute;
+        display: grid;
+        place-items: center;
+        transform-origin: center;
+        will-change: transform;
+    }
+    .courses-gear svg { width: 100%; height: 100%; display: block; }
+    .courses-gear-a {
+        width: 7.5rem; height: 7.5rem; top: -1.2rem; left: 42%;
+        color: rgba(26, 95, 138, 0.12);
+        animation: toolsSpin 52s linear infinite;
+    }
+    .courses-gear-b {
+        width: 5.5rem; height: 5.5rem; bottom: -0.8rem; right: 4%;
+        color: rgba(15, 118, 110, 0.14);
+        animation: toolsSpin 38s linear infinite reverse;
+    }
+
+    .course-tab {
+        border-radius: 0.85rem;
+        border: 1px solid rgba(226, 232, 240, 0.95);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 0.6rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #64748b;
+        transition: color 220ms ease, background 220ms ease, border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    }
+    .course-tab:hover {
+        border-color: rgba(125, 211, 252, 0.7);
+        color: #1a5f8a;
+        background: #f0f9ff;
+    }
+    .course-tab.is-active {
+        border-color: rgba(14, 165, 233, 0.55);
+        background: linear-gradient(135deg, #e0f2fe, #ecfeff);
+        color: #0f2744;
+        box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.2), 0 8px 18px rgba(26, 95, 138, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .course-card {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 1.1rem;
+        border: 1px solid rgba(213, 227, 239, 0.95);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 10px 24px rgba(15, 39, 68, 0.05);
+        transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease, border-color 260ms ease;
+        animation: toolCardIn 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation-delay: var(--d, 0ms);
+    }
+    .course-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(56, 189, 248, 0.55);
+        box-shadow: 0 18px 36px rgba(26, 95, 138, 0.14);
+    }
+    .course-card-media {
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+    }
+    .course-play-overlay {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(180deg, rgba(15, 39, 68, 0.05), rgba(15, 39, 68, 0.35));
+        opacity: 0;
+        transition: opacity 260ms ease;
+        pointer-events: none;
+    }
+    .course-card:hover .course-play-overlay { opacity: 1; }
+    .course-play-btn {
+        display: inline-flex;
+        height: 2.75rem;
+        width: 2.75rem;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #1a5f8a, #0f766e);
+        color: #fff;
+        box-shadow: 0 10px 24px rgba(15, 39, 68, 0.28);
+        transform: scale(0.92);
+        transition: transform 260ms ease;
+    }
+    .course-card:hover .course-play-btn { transform: scale(1); }
+
+    .course-badge {
+        pointer-events: none;
+        position: absolute;
+        left: 0.55rem;
+        top: 0.55rem;
+        display: inline-flex;
+        align-items: center;
+        border-radius: 0.45rem;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.625rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(15, 39, 68, 0.18);
+    }
+    .course-badge-beginner { background: linear-gradient(135deg, #0f766e, #14b8a6); }
+    .course-badge-intermediate { background: linear-gradient(135deg, #1a5f8a, #2b7cb5); }
+    .course-badge-advanced { background: linear-gradient(135deg, #0369a1, #0ea5e9); }
+    .course-badge-expert { background: linear-gradient(135deg, #115e59, #0f766e); }
+
+    .course-card-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 0.85rem;
+    }
+    .course-card-title {
+        margin-bottom: 0.55rem;
+        min-height: 2.75rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.35;
+        color: #0f2744;
+    }
+    .course-card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.75rem;
+        color: #64748b;
+    }
+    .course-card-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+    .course-card-meta svg { color: #0284c7; }
+    .course-card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        margin-bottom: 0.65rem;
+    }
+    .course-btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        border-radius: 0.65rem;
+        border: 1px solid rgba(203, 213, 225, 0.95);
+        background: #f8fafc;
+        padding: 0.35rem 0.65rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #475569;
+        transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+    }
+    .course-btn-ghost:hover {
+        border-color: rgba(125, 211, 252, 0.8);
+        background: #f0f9ff;
+        color: #1a5f8a;
+    }
+    .course-btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        border-radius: 0.65rem;
+        border: 1px solid rgba(14, 165, 233, 0.35);
+        background: linear-gradient(135deg, #1a5f8a, #0284c7);
+        padding: 0.35rem 0.65rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #fff;
+        transition: filter 200ms ease, transform 200ms ease;
+    }
+    .course-btn-download:hover {
+        filter: brightness(1.08);
+        transform: translateY(-1px);
+    }
+    .course-btn-play {
+        margin-top: auto;
+        display: inline-flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.75rem;
+        border: 0;
+        background: linear-gradient(135deg, #1a5f8a 0%, #2b7cb5 55%, #0f766e 100%);
+        padding: 0.65rem 1rem;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #fff;
+        box-shadow: 0 10px 22px rgba(26, 95, 138, 0.22);
+        transition: filter 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+    }
+    .course-btn-play:hover {
+        filter: brightness(1.06);
+        transform: translateY(-1px);
+        box-shadow: 0 14px 28px rgba(26, 95, 138, 0.28);
+    }
+
     .reveal-item {
         opacity: 0;
         transform: translate3d(0, 22px, 0);
@@ -562,7 +1000,15 @@
         .reveal-item,
         .hero-bg-block,
         .hero-bg-gear,
-        .hero-bg-blob {
+        .hero-bg-blob,
+        .tools-blob,
+        .tools-block,
+        .tools-gear,
+        .tool-card,
+        .courses-blob,
+        .courses-block,
+        .courses-gear,
+        .course-card {
             animation: none !important;
             transition: none !important;
             opacity: 1 !important;
@@ -1085,12 +1531,7 @@ import * as THREE from 'three';
                     var op = document.getElementById('panel-' + oid);
                     if (ob) {
                         ob.setAttribute('aria-selected', oid === id ? 'true' : 'false');
-                        ob.classList.toggle('border-sky-500', oid === id);
-                        ob.classList.toggle('bg-sky-100', oid === id);
-                        ob.classList.toggle('text-sky-800', oid === id);
-                        ob.classList.toggle('border-slate-200', oid !== id);
-                        ob.classList.toggle('bg-white', oid !== id);
-                        ob.classList.toggle('text-slate-500', oid !== id);
+                        ob.classList.toggle('is-active', oid === id);
                     }
                     if (op) op.classList.toggle('hidden', oid !== id);
                 });

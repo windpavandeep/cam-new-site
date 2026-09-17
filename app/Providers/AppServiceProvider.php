@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Models\ContactMessage;
+use App\Models\ContactSetting;
 use App\Models\JobApplication;
 use Illuminate\Contracts\Foundation\ExceptionRenderer;
 use Illuminate\Support\Facades\Schema;
@@ -61,6 +62,23 @@ class AppServiceProvider extends ServiceProvider
             }
             $view->with('unread_contact_messages_count', $unread_contact_messages_count);
             $view->with('unread_job_applications_count', $unread_job_applications_count);
+        });
+
+        View::composer('partials.footer', function (\Illuminate\View\View $view): void {
+            $footer_contact = [
+                'email' => null,
+                'phone' => null,
+                'address' => null,
+                'hours' => null,
+            ];
+            try {
+                if (Schema::hasTable('contact_settings')) {
+                    $footer_contact = ContactSetting::current()->toPublicArray();
+                }
+            } catch (\Throwable) {
+                // Keep empty contact block if settings are unavailable.
+            }
+            $view->with('footer_contact', $footer_contact);
         });
     }
 }

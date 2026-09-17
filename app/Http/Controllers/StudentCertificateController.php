@@ -51,12 +51,16 @@ class StudentCertificateController extends Controller
         $validated = $request->validate([
             'ref_no' => ['required', 'string', 'max:64', 'regex:/^[A-Z0-9\-_]+$/', 'unique:student_certificates,ref_no'],
             'student_name' => ['nullable', 'string', 'max:150'],
+            'father_name' => ['nullable', 'string', 'max:150'],
             'course_name' => ['nullable', 'string', 'max:200'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
             'issued_at' => ['nullable', 'date'],
             'file' => ['required', 'file', 'mimes:pdf,jpeg,jpg,png,webp', 'max:'.self::MAX_FILE_KB],
         ], [
             'ref_no.regex' => 'Reference number may only contain letters, numbers, hyphens, and underscores.',
             'ref_no.unique' => 'This reference number is already in use.',
+            'end_date.after_or_equal' => 'End date must be on or after the start date.',
         ]);
 
         $ref_no = $validated['ref_no'];
@@ -82,7 +86,10 @@ class StudentCertificateController extends Controller
         StudentCertificate::create([
             'ref_no' => $ref_no,
             'student_name' => $validated['student_name'] ?? null,
+            'father_name' => $validated['father_name'] ?? null,
             'course_name' => $validated['course_name'] ?? null,
+            'start_date' => $validated['start_date'] ?? null,
+            'end_date' => $validated['end_date'] ?? null,
             'path' => $storage_dir.'/'.$filename,
             'original_name' => $original_name,
             'mime_type' => $mime_type,
@@ -91,6 +98,41 @@ class StudentCertificateController extends Controller
         ]);
 
         return redirect()->route('dashboard.certificates.index')->with('success', 'Certificate added for ref '.$ref_no.'.');
+    }
+
+    public function update(Request $request, StudentCertificate $certificate): RedirectResponse
+    {
+        $this->ensureAdmin();
+
+        $request->merge([
+            'ref_no' => StudentCertificate::normalizeRefNo((string) $request->input('ref_no', '')),
+        ]);
+
+        $validated = $request->validate([
+            'ref_no' => ['required', 'string', 'max:64', 'regex:/^[A-Z0-9\-_]+$/', 'unique:student_certificates,ref_no,'.$certificate->id],
+            'student_name' => ['nullable', 'string', 'max:150'],
+            'father_name' => ['nullable', 'string', 'max:150'],
+            'course_name' => ['nullable', 'string', 'max:200'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
+            'issued_at' => ['nullable', 'date'],
+        ], [
+            'ref_no.regex' => 'Reference number may only contain letters, numbers, hyphens, and underscores.',
+            'ref_no.unique' => 'This reference number is already in use.',
+            'end_date.after_or_equal' => 'End date must be on or after the start date.',
+        ]);
+
+        $certificate->update([
+            'ref_no' => $validated['ref_no'],
+            'student_name' => $validated['student_name'] ?? null,
+            'father_name' => $validated['father_name'] ?? null,
+            'course_name' => $validated['course_name'] ?? null,
+            'start_date' => $validated['start_date'] ?? null,
+            'end_date' => $validated['end_date'] ?? null,
+            'issued_at' => $validated['issued_at'] ?? null,
+        ]);
+
+        return redirect()->route('dashboard.certificates.index')->with('success', 'Certificate updated for ref '.$validated['ref_no'].'.');
     }
 
     public function destroy(StudentCertificate $certificate): RedirectResponse
