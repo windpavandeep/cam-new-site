@@ -36,20 +36,36 @@ class Media extends Model
         return PublicAsset::url((string) $this->path);
     }
 
-    /** Public URL for the thumbnail, or null if not set. */
+    /** Public URL for the thumbnail, or the main file when it is an image. */
     public function getThumbnailUrlAttribute(): ?string
     {
-        if (! $this->thumbnail_path) {
-            return null;
+        if ($this->thumbnail_path) {
+            $thumb_disk = PublicAsset::diskPath((string) $this->thumbnail_path);
+            if (is_file($thumb_disk)) {
+                return PublicAsset::url((string) $this->thumbnail_path);
+            }
         }
 
-        return PublicAsset::url((string) $this->thumbnail_path);
+        if ($this->isImageFile() && is_file(PublicAsset::diskPath((string) $this->path))) {
+            return PublicAsset::url((string) $this->path);
+        }
+
+        return null;
     }
 
-    /** Whether this media has a thumbnail. */
+    /** Whether this media has a dedicated thumbnail or is itself an image. */
     public function hasThumbnail(): bool
     {
-        return ! empty($this->thumbnail_path);
+        return $this->thumbnail_url !== null;
+    }
+
+    public function isImageFile(): bool
+    {
+        if (str_starts_with((string) $this->mime_type, 'image/')) {
+            return true;
+        }
+
+        return (bool) preg_match('/\.(jpe?g|png|gif|webp|bmp|svg)$/i', (string) $this->original_name);
     }
 
     /** Videos that use this media as their model (PDF). */

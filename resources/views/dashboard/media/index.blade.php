@@ -35,7 +35,7 @@
             <div>
                 <label for="tooltip" class="mb-1 block text-sm font-medium text-slate-700">Tooltip (optional)</label>
                 <input type="text" name="tooltip" id="tooltip" value="{{ old('tooltip') }}" maxlength="500"
-                    placeholder="Short description shown on hover"d
+                    placeholder="Short description shown on hover"
                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">
                 @error('tooltip')
                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -68,7 +68,7 @@
             <li class="flex flex-wrap items-center gap-4 p-4 sm:p-6">
                 <div class="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-slate-200 flex items-center justify-center">
                     @if ($item->thumbnail_url)
-                        <img src="{{ \App\Support\PublicAsset::url($item->thumbnail_path) }}" alt="" class="w-full h-full object-cover">
+                        <img src="{{ $item->thumbnail_url }}" alt="" class="w-full h-full object-cover">
                     @else
                         <span class="text-2xl text-slate-400" title="No thumbnail">📄</span>
                     @endif

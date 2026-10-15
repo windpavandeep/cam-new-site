@@ -86,7 +86,7 @@
         </nav>
 
         <div class="flex items-center gap-2 lg:hidden">
-            <a href="{{ route('certificates.lookup') }}" class="rounded-xl border border-sky-200 bg-white/90 px-3 py-2 text-xs font-semibold text-cam-steel transition hover:border-teal-300 hover:text-teal-700">Certs</a>
+            <a href="{{ route('certificates.lookup') }}" class="rounded-xl border border-sky-200 bg-white/90 px-3 py-2 text-xs font-semibold text-cam-steel transition hover:border-teal-300 hover:text-teal-700">Certificates</a>
             <button type="button" id="mobileNavToggle" class="mobile-nav-toggle inline-flex h-10 w-10 items-center justify-center rounded-xl border border-sky-200 bg-white/90 text-cam-ink transition hover:border-sky-400 hover:text-cam-steel" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open menu">
                 <svg class="icon-open h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h16M4 17h16"/></svg>
                 <svg class="icon-close hidden h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>

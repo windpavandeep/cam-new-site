@@ -2,6 +2,7 @@
     $fc = is_array($footer_contact ?? null) ? $footer_contact : [];
     $footer_email = isset($fc['email']) ? trim((string) $fc['email']) : '';
     $footer_phone = isset($fc['phone']) ? trim((string) $fc['phone']) : '';
+    $footer_location = isset($fc['location']) ? trim((string) $fc['location']) : '';
     $footer_address = isset($fc['address']) ? trim((string) $fc['address']) : '';
     $footer_hours = isset($fc['hours']) ? trim((string) $fc['hours']) : '';
 @endphp
@@ -37,7 +38,7 @@
                     </span>
                 </a>
                 <p class="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
-                    Practical Mastercam and CNC programming lessons — toolpaths, models, jobs, and certificates in one place.
+                    Practical Mastercam and CNC programming lessons — toolpaths, models, jobs, and Certificates in one place.
                 </p>
                 <a href="{{ route('contact') }}" class="mt-5 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-cam-steel to-cam-sky px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-sky-500/20 transition hover:brightness-105">
                     Contact Us
@@ -102,10 +103,18 @@
                         <span>{{ $footer_phone }}</span>
                     </a>
                     @endif
-                    @if ($footer_address !== '')
+                    @if ($footer_location !== '')
                     <div class="footer-contact-row">
                         <span class="footer-contact-icon">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </span>
+                        <span>{{ $footer_location }}</span>
+                    </div>
+                    @endif
+                    @if ($footer_address !== '')
+                    <div class="footer-contact-row">
+                        <span class="footer-contact-icon">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7l9-4 9 4-9 4-9-4zm0 6l9 4 9-4M3 13v6l9 4 9-4v-6"/></svg>
                         </span>
                         <span class="whitespace-pre-line">{{ $footer_address }}</span>
                     </div>
@@ -118,7 +127,7 @@
                         <span>{{ $footer_hours }}</span>
                     </div>
                     @endif
-                    @if ($footer_email === '' && $footer_phone === '' && $footer_address === '')
+                    @if ($footer_email === '' && $footer_phone === '' && $footer_location === '' && $footer_address === '')
                     <p class="text-sm text-slate-500">Visit our <a href="{{ route('contact') }}" class="font-semibold text-cam-steel underline decoration-sky-300 underline-offset-2 hover:text-cam-sky">Contact page</a> to send a message.</p>
                     @else
                     <a href="{{ route('contact') }}" class="inline-flex text-sm font-semibold text-cam-steel transition hover:text-cam-sky">Open contact form →</a>

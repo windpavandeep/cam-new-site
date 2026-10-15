@@ -68,6 +68,7 @@ class AppServiceProvider extends ServiceProvider
             $footer_contact = [
                 'email' => null,
                 'phone' => null,
+                'location' => null,
                 'address' => null,
                 'hours' => null,
             ];

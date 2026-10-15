@@ -88,7 +88,7 @@
             <div class="mt-8 flex flex-wrap items-center gap-3">
                 <a href="#course-library" class="cam-btn text-sm">Start Learning</a>
                 <a href="{{ route('videos') }}" class="cam-btn-ghost text-sm">Explore Courses</a>
-                <a href="{{ route('certificates.lookup') }}" class="text-sm font-semibold text-cam-steel hover:text-cam-sky">Find certificate →</a>
+                <a href="{{ route('certificates.lookup') }}" class="text-sm font-semibold text-cam-steel hover:text-cam-sky">Find Certificate →</a>
             </div>
         </div>
 
@@ -433,7 +433,7 @@
                     </svg>
                 </span>
                 <p class="text-sm font-semibold text-sky-700">Certification</p>
-                <p class="mt-1 text-xs text-slate-500">Get recognized with completion certificate.</p>
+                <p class="mt-1 text-xs text-slate-500">Get recognized with completion Certificate.</p>
             </div>
         </div>
         <div class="grid grid-cols-2 gap-3 md:grid-cols-4">

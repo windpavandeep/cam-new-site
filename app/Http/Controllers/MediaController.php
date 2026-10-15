@@ -99,6 +99,9 @@ class MediaController extends Controller
                 return redirect()->route('dashboard.media.index')->with('error', 'Could not save thumbnail: '.$e->getMessage());
             }
             $thumbnail_path = 'media/thumbnails/' . $thumb_filename;
+        } elseif (is_string($mime) && str_starts_with($mime, 'image/')) {
+            // Use the uploaded image itself as the preview when no separate thumbnail is provided.
+            $thumbnail_path = $path;
         }
 
         Media::create([

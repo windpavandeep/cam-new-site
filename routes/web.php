@@ -28,6 +28,7 @@ Route::prefix($prefix)->group(function () {
     Route::get('/models-draw', [PageController::class, 'models'])->name('models');
     Route::get('/certificates', [CertificateLookupController::class, 'index'])->name('certificates.lookup');
     Route::get('/certificates/{certificate}/view', [CertificateLookupController::class, 'viewFile'])->name('certificates.view');
+    Route::get('/certificates/{certificate}/photo', [CertificateLookupController::class, 'viewPhoto'])->name('certificates.photo');
     Route::get('/certificates/{certificate}/download', [CertificateLookupController::class, 'download'])->name('certificates.download');
     Route::get('/jobs', [JobOpeningController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/{job:slug}', [JobOpeningController::class, 'show'])->name('jobs.show');

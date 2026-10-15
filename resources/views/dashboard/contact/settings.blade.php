@@ -38,6 +38,15 @@
                 @enderror
             </div>
             <div>
+                <label for="location" class="mb-1 block text-sm font-medium text-slate-700">Location</label>
+                <input type="text" name="location" id="location" value="{{ old('location', $settings->location) }}" maxlength="255"
+                    class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500"
+                    placeholder="e.g. Lahore, Pakistan">
+                @error('location')
+                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+            <div>
                 <label for="address" class="mb-1 block text-sm font-medium text-slate-700">Address</label>
                 <textarea name="address" id="address" rows="4" maxlength="2000"
                     class="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:border-sky-600 focus:outline-none focus:ring-1 focus:ring-sky-500">{{ old('address', $settings->address) }}</textarea>

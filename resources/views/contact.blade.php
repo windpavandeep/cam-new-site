@@ -7,6 +7,7 @@
     $c = is_array($contact ?? null) ? $contact : [];
     $contact_email = isset($c['email']) ? trim((string) $c['email']) : '';
     $contact_phone = isset($c['phone']) ? trim((string) $c['phone']) : '';
+    $contact_location = isset($c['location']) ? trim((string) $c['location']) : '';
     $contact_address = isset($c['address']) ? trim((string) $c['address']) : '';
     $contact_hours = isset($c['hours']) ? trim((string) $c['hours']) : '';
 @endphp
@@ -50,6 +51,12 @@
                     <div>
                         <dt class="mb-1 font-medium text-slate-500">Phone</dt>
                         <dd><a href="tel:{{ preg_replace('/\s+/', '', $contact_phone) }}" class="font-medium text-slate-700 hover:text-sky-700">{{ $contact_phone }}</a></dd>
+                    </div>
+                    @endif
+                    @if ($contact_location !== '')
+                    <div>
+                        <dt class="mb-1 font-medium text-slate-500">Location</dt>
+                        <dd class="font-medium text-slate-700">{{ $contact_location }}</dd>
                     </div>
                     @endif
                     @if ($contact_address !== '')

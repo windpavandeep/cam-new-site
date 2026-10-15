@@ -16,6 +16,9 @@ class StudentCertificate extends Model
     /** Public disk folder for uploaded files (must not match URL /certificates). */
     public const string STORAGE_DIR = 'student-certificates';
 
+    /** Subfolder for student photos. */
+    public const string PHOTO_DIR = 'student-certificates/photos';
+
     protected $fillable = [
         'ref_no',
         'student_name',
@@ -24,6 +27,9 @@ class StudentCertificate extends Model
         'start_date',
         'end_date',
         'path',
+        'student_photo_path',
+        'student_photo_original_name',
+        'student_photo_mime_type',
         'original_name',
         'mime_type',
         'size',
@@ -43,6 +49,24 @@ class StudentCertificate extends Model
     public function getUrlAttribute(): string
     {
         return PublicAsset::url((string) $this->path);
+    }
+
+    public function getStudentPhotoUrlAttribute(): ?string
+    {
+        if (! $this->student_photo_path) {
+            return null;
+        }
+
+        if (! is_file(PublicAsset::diskPath((string) $this->student_photo_path))) {
+            return null;
+        }
+
+        return PublicAsset::url((string) $this->student_photo_path);
+    }
+
+    public function hasStudentPhoto(): bool
+    {
+        return $this->student_photo_url !== null;
     }
 
     public static function normalizeRefNo(string $ref_no): string

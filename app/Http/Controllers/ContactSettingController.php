@@ -33,6 +33,7 @@ class ContactSettingController extends Controller
         $validated = $request->validate([
             'email' => ['nullable', 'string', 'max:255', 'email'],
             'phone' => ['nullable', 'string', 'max:50'],
+            'location' => ['nullable', 'string', 'max:255'],
             'address' => ['nullable', 'string', 'max:2000'],
             'hours' => ['nullable', 'string', 'max:1000'],
         ]);

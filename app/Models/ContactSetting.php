@@ -14,6 +14,7 @@ class ContactSetting extends Model
     protected $fillable = [
         'email',
         'phone',
+        'location',
         'address',
         'hours',
     ];
@@ -28,19 +29,21 @@ class ContactSetting extends Model
         return self::query()->create([
             'email' => null,
             'phone' => null,
+            'location' => null,
             'address' => null,
             'hours' => 'Monday–Friday, 9:00 a.m.–5:00 p.m. (local time)',
         ]);
     }
 
     /**
-     * @return array{email: string|null, phone: string|null, address: string|null, hours: string|null}
+     * @return array{email: string|null, phone: string|null, location: string|null, address: string|null, hours: string|null}
      */
     public function toPublicArray(): array
     {
         return [
             'email' => $this->email !== '' ? $this->email : null,
             'phone' => $this->phone !== '' ? $this->phone : null,
+            'location' => $this->location !== '' ? $this->location : null,
             'address' => $this->address !== '' ? $this->address : null,
             'hours' => $this->hours !== '' ? $this->hours : null,
         ];

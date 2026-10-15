@@ -40,7 +40,7 @@ class CertificateLookupController extends Controller
     {
         $ref_no = StudentCertificate::normalizeRefNo((string) $request->query('ref', ''));
         if ($ref_no === '' || $ref_no !== $certificate->ref_no) {
-            abort(403, 'Invalid reference for this certificate.');
+            abort(403, 'Invalid reference for this Certificate.');
         }
 
         $disk = PublicAsset::diskPath($certificate->path);
@@ -53,11 +53,32 @@ class CertificateLookupController extends Controller
         ]);
     }
 
+    public function viewPhoto(Request $request, StudentCertificate $certificate): BinaryFileResponse
+    {
+        $ref_no = StudentCertificate::normalizeRefNo((string) $request->query('ref', ''));
+        if ($ref_no === '' || $ref_no !== $certificate->ref_no) {
+            abort(403, 'Invalid reference for this Certificate.');
+        }
+
+        if (! $certificate->student_photo_path) {
+            abort(404, 'Student photo not found.');
+        }
+
+        $disk = PublicAsset::diskPath($certificate->student_photo_path);
+        if (! is_file($disk)) {
+            abort(404, 'Student photo not found.');
+        }
+
+        return response()->file($disk, [
+            'Content-Type' => $certificate->student_photo_mime_type ?? 'image/jpeg',
+        ]);
+    }
+
     public function download(Request $request, StudentCertificate $certificate): BinaryFileResponse
     {
         $ref_no = StudentCertificate::normalizeRefNo((string) $request->query('ref', ''));
         if ($ref_no === '' || $ref_no !== $certificate->ref_no) {
-            abort(403, 'Invalid reference for this certificate.');
+            abort(403, 'Invalid reference for this Certificate.');
         }
 
         $disk = PublicAsset::diskPath($certificate->path);
